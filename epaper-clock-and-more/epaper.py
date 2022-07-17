@@ -148,8 +148,8 @@ class EPaper(object):
                     from epds import epd2in7b
                     self._epd = epd2in7b.EPD()
             elif self.DEVICE_TYPE == 'waveshare-4.2':
-                from epds import epd4in2
-                self._epd = epd4in2.EPD()
+                from epds import epd4in2b_V2
+                self._epd = epd4in2b_V2.EPD()
 
             self._epd.init()
 
