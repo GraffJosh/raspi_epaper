@@ -15,7 +15,8 @@ AirlyTuple = namedtuple('Airly', ['provider', 'pm25', 'pm10', 'aqi', 'level', 'a
 class Airly(Acquire):
 
 
-    DEFAULT = AirlyTuple(provider='Airly', pm25=-1, pm10=-1, pressure=-1, humidity=-1, temperature=None, aqi=-1, level='n/a', advice='n/a')
+    # DEFAULT = AirlyTuple(provider='Airly', pm25=-1, pm10=-1, pressure=-1, humidity=-1, temperature=None, aqi=-1, level='n/a', advice='n/a')
+    DEFAULT = AirlyTuple(provider='Airly', pm25=-1, pm10=-1, aqi=-1, level='n/a', advice='n/a')
 
 
     def __init__(self, key, lat, lon, cache_ttl):
