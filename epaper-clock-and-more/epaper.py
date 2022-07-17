@@ -37,14 +37,14 @@ class EPaper(object):
 
     if DEVICE_TYPE == 'waveshare-2.7':          # TODO refactor to use enums
         # Display resolution for 2.7"
-        EPD_WIDTH       = 176
-        EPD_HEIGHT      = 264
+        EPD_WIDTH       = 400
+        EPD_HEIGHT      = 300
         MONO_DISPLAY    = False
     elif DEVICE_TYPE == 'waveshare-4.2':
         # Display resolution for 4.2"
         EPD_WIDTH       = 400
         EPD_HEIGHT      = 300
-        MONO_DISPLAY    = True
+        MONO_DISPLAY    = False
     else:
         raise Exception('Incorrect epaper screen type: ' + DEVICE_TYPE)
 
