@@ -128,7 +128,7 @@ class EPD:
         
         return 0
 
-    def getbuffer(self, image):
+    def get_frame_buffer(self, image):
         # logger.debug("bufsiz = ",int(self.width/8) * self.height)
         buf = [0xFF] * (int(self.width/8) * self.height)
         image_monocolor = image.convert('1')
@@ -151,19 +151,6 @@ class EPD:
                     if pixels[x, y] == 0:
                         buf[int((newx + newy*self.width) / 8)] &= ~(0x80 >> (y % 8))
         return buf
-
-    def display(self, imageblack, imagered):
-        self.send_command(0x10)
-        for i in range(0, int(self.width * self.height / 8)):
-            self.send_data(imageblack[i])
-        
-        self.send_command(0x13)
-        for i in range(0, int(self.width * self.height / 8)):
-            self.send_data(imagered[i])
-        
-        self.send_command(0x12) 
-        epdconfig.delay_ms(20)
-        self.ReadBusy()
 
     def display_frame(self, imageblack, imagered):
         self.send_command(0x10)
