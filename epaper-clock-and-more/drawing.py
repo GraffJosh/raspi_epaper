@@ -93,7 +93,9 @@ class Drawing(object):
             if black_on_red:
                 self.draw_text(85, top_y, caption, 90, draw, 0)
             else:
-                self.draw_text(85, top_y, caption, 90, red_draw, 255)
+                self.draw_text(85, top_y, caption, 90, draw, 255)
+                pass
+            self.draw_text(85, top_y, caption, 90, red_draw, 0)
         else:
             self.draw_text(85, top_y, caption, 90, draw, 255)
         
