@@ -8,7 +8,8 @@ import requests
 from collections import namedtuple
 
 
-AirlyTuple = namedtuple('Airly', ['provider', 'pm25', 'pm10', 'humidity', 'pressure', 'temperature', 'aqi', 'level', 'advice'])
+# AirlyTuple = namedtuple('Airly', ['provider', 'pm25', 'pm10', 'humidity', 'pressure', 'temperature', 'aqi', 'level', 'advice'])
+AirlyTuple = namedtuple('Airly', ['provider', 'pm25', 'pm10', 'aqi', 'level', 'advice'])
 
 
 class Airly(Acquire):
