@@ -57,7 +57,7 @@ class Airly(Acquire):
     def get(self):
         try:
             airly_data = self.load()
-            print (airly_data["current"])
+            print (airly_data["current"]["values"])
             if airly_data is None or 'current' not in airly_data or 'values' not in airly_data["current"] or not airly_data["current"]["values"] or not airly_data["current"]["indexes"]:
                 
                 logging.warn("No reasonable data returned by Airly. Check API key (status code) or whether the location has any sensors around (visit: https://airly.eu/map/en/)")
