@@ -36,7 +36,7 @@ class Drawing(object):
 
     def draw_text(self, x, y, text, font_size, draw, color=0):
         font = self.load_font(font_size)
-        draw.text((x, y), unicode(text, "utf-8"), font=font, fill=color)
+        draw.text((x, y), str(text), font=font, fill=color)
         return y + font_size * 1.2  # +20%
 
 
@@ -49,11 +49,11 @@ class Drawing(object):
             lines = textwrap.wrap(text, width=break_at)
             line_counter = 0
             for line in lines:
-                draw.text((x, y + line_counter * font_size * 1.1), unicode(line, "utf-8"), font=font, fill=color)
+                draw.text((x, y + line_counter * font_size * 1.1), str(line), font=font, fill=color)
                 line_counter += 1
                 height += font_size * 1.2
         else:
-            draw.text((x, y), unicode(text, "utf-8"), font=font, fill=color)
+            draw.text((x, y), str(text), font=font, fill=color)
             height += font_size * 1.2
       
         return y + height
@@ -141,9 +141,9 @@ class Drawing(object):
         # lower font size to accommodate huge polution levels
         if font_dims[0] > 100:
             font = self.load_font(text_size * 2 / 3)
-            draw.text((x, y + 15), unicode(text, "utf-8"), font=font, fill=font_color)
+            draw.text((x, y + 15), str(text), font=font, fill=font_color)
         else:
-            draw.text((x, y), unicode(text, "utf-8"), font=font, fill=font_color)
+            draw.text((x, y), str(text), font=font, fill=font_color)
 
 
     def draw_text_eta(self, x, y, text, text_size, draw, font_color=255):
@@ -159,7 +159,7 @@ class Drawing(object):
         if font_width[0] > 100:
             font = self.load_font(text_size * 2 / 4)
 
-        draw.text((x, y), unicode(text, "utf-8"), font=font, fill=font_color)
+        draw.text((x, y), str(text), font=font, fill=font_color)
 
 
     def draw_aqi(self, black_buf, red_buf, aqi, black_on_red):
