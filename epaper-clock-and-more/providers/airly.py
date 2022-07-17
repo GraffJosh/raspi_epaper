@@ -57,8 +57,8 @@ class Airly(Acquire):
     def get(self):
         try:
             airly_data = self.load()
-            print (airly_data["current"]["values"])
-            if airly_data is None or 'current' not in airly_data or 'values' not in airly_data["current"] or not airly_data["current"]["values"] or not airly_data["current"]["indexes"]:
+            # print (airly_data["current"]["values"])
+            if airly_data is None or 'current' not in airly_data or 'values' not in airly_data["current"]: #or not airly_data["current"]["values"] or not airly_data["current"]["indexes"]:
                 
                 logging.warn("No reasonable data returned by Airly. Check API key (status code) or whether the location has any sensors around (visit: https://airly.eu/map/en/)")
                 return self.DEFAULT
@@ -67,9 +67,9 @@ class Airly(Acquire):
                 provider='Airly',
                 pm25=airly_data["current"]["values"][1]['value'],
                 pm10=airly_data["current"]["values"][2]['value'],
-                pressure=airly_data["current"]["values"][3]['value'],
-                humidity=airly_data["current"]["values"][4]['value'],
-                temperature=airly_data["current"]["values"][5]['value'],
+                # pressure=airly_data["current"]["values"][3]['value'],
+                # humidity=airly_data["current"]["values"][4]['value'],
+                # temperature=airly_data["current"]["values"][5]['value'],
                 aqi=airly_data["current"]["indexes"][0]['value'],
                 level=airly_data["current"]["indexes"][0]['level'],
                 advice=airly_data["current"]["indexes"][0]['advice']
