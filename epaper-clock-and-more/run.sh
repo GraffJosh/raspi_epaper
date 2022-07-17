@@ -9,8 +9,8 @@
 
 # WARNING WARNING WARNING
 # - rename run-EDIT-ME.sh to run.sh and comment out the following 2 lines and re-configure the environment variables below
-echo "Please edit and configure this script for your needs"
-exit 1
+# echo "Please edit and configure this script for your needs"
+# exit 1
 
 # Developer debug mode - no epaper device is required to develop or debug - the output that is originally 
 # sent to device is being saved as bmp files here: /tmp/epaper*.bmp
@@ -38,7 +38,7 @@ export OPENWEATHER_KEY=79c637a9b17fbae61c29dd0854942812            # get the key
 export WEATHERBIT_IO_KEY=GET_YOUR_OWN_KEY   # get the key from: https://www.weatherbit.io/account/create
 
 # A key for AQI (Air Quality Index) from AIRLY.EU API (data for certain countries only, as yet, but you may order their device to provide data also for your neighbours)
-export AIRLY_KEY=79c637a9b17fbae61c29dd0854942812           # get the key from: https://developer.airly.eu/register
+export AIRLY_KEY=XxtfbAAK6CydYpGspFXWiDHJavpV1yAa           # get the key from: https://developer.airly.eu/register
 
 # A key for AQI (Air Quality Index) from AQICN API (data for cities across the world) - used as a fallback if Airly key above is not defined.
 # See AQICN_CITY_OR_ID below to optionally specify city instead of lat&lon as above, or to use IP based geolocation.

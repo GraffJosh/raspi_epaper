@@ -2,7 +2,7 @@
 # Modifications: https://github.com/pskowronek/epaper-clock-and-more, Apache 2 license
 # DEPRECATED as DarkSky no longer accepts new submissions since acquisition by Apple
 
-from acquire import Acquire
+from providers.acquire import Acquire
 
 import logging
 import requests
