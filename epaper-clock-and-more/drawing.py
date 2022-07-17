@@ -125,7 +125,8 @@ class Drawing(object):
                 n = "_SPACE"
             fn = 'resources/images/%s.bmp' % n
             img_num = Image.open(fn)
-            img_num = img_num.resize((img_num.size[0], img_num.size[1] / 2), Image.NEAREST)
+            print()
+            img_num = img_num.resize((img_num.size[0], int(img_num.size[1] / 2)), Image.NEAREST)
             img_buf.paste(img_num, (start_pos[0] + offs, start_pos[1]))
             offs += im_width
         if use_hrs_mins_separator:
