@@ -49,7 +49,7 @@ class Acquire(object):
 
     def error_found(self, status_code, response_text):
         result = False
-        if (status_code in [401, 403] ):
+        if (status_code in [401, 402, 403, 404, 405, 406, 407] ):
             logging.warn("Remote server returned: %d - probably wrong API key" % status_code)
             result = True
         elif (status_code != 200):

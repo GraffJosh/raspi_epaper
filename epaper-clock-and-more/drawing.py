@@ -87,7 +87,7 @@ class Drawing(object):
         current_temp = weather.temp
         if prefer_airly_local_temp and airly.temperature is not None:
             current_temp = airly.temperature
-        
+        print("curr temp: ",int(current_temp))
         caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
         if int(current_temp > 80):
             if black_on_red:
