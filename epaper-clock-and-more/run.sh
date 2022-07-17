@@ -26,19 +26,19 @@
 #export EPAPER_FAST_REFRESH=true
 
 # Lat & lon of your home (a base point)
-export LAT=50.0618971 # using Rynek Główny @ KRK, as Plac Centralny doesn't temporarily work properly with Airly (#6) 50.0720519
-export LON=19.9345672 # 20.0373204
+export LAT=37.35552 # using Rynek Główny @ KRK, as Plac Centralny doesn't temporarily work properly with Airly (#6) 50.0720519
+export LON=-122.005094 # 20.0373204
 
 # A key for traffic delays from Google Maps Distance Matrix API
-export GOOGLE_MAPS_KEY=AIzaSyCb8rBaCfNhNwn9r_GgN3tr8Qlwuff6J2U     # get the key from: https://developers.google.com/maps/documentation/embed/get-api-key
+export GOOGLE_MAPS_KEY=key     # get the key from: https://developers.google.com/maps/documentation/embed/get-api-key
 
 # A key for weather forecasts from OpenWeather One Call API
-export OPENWEATHER_KEY=79c637a9b17fbae61c29dd0854942812            # get the key from: https://openweathermap.org/home/sign_up
+export OPENWEATHER_KEY=key            # get the key from: https://openweathermap.org/home/sign_up
 # A key for weather forecasts + alerts from Weatherbit.io API
 export WEATHERBIT_IO_KEY=GET_YOUR_OWN_KEY   # get the key from: https://www.weatherbit.io/account/create
 
 # A key for AQI (Air Quality Index) from AIRLY.EU API (data for certain countries only, as yet, but you may order their device to provide data also for your neighbours)
-export AIRLY_KEY=XxtfbAAK6CydYpGspFXWiDHJavpV1yAa           # get the key from: https://developer.airly.eu/register
+export AIRLY_KEY=key           # get the key from: https://developer.airly.eu/register
 
 # A key for AQI (Air Quality Index) from AQICN API (data for cities across the world) - used as a fallback if Airly key above is not defined.
 # See AQICN_CITY_OR_ID below to optionally specify city instead of lat&lon as above, or to use IP based geolocation.
@@ -88,14 +88,14 @@ export SECOND_TIME_TO_DESTINATION_LON=20.4303646
 export SECOND_TIME_WARN_ABOVE_PERCENT=50
 
 # Whether to paint black font on red canvas (for warn statuses) - helps visual espect if red dye faded out already
-export WARN_PAINTED_BLACK_ON_RED=false
+export WARN_PAINTED_BLACK_ON_RED=true
 
 # Dead times - between stated hours data & display update is being done once in an hour and minutes won't be displayed. Default is [] - no dead times.
 # This env var will be evaluated by python - so becareful, first: don't expose this env to outside world (security), second: follow the syntax otherwise program will die
 #export DEAD_TIMES="[range(1,5),range(10,15)]"
 
 # Whether to draw two vertical dots to separate hours and minutes (to avoid confusion that a year is being displayed... yes, I know people who first thought that was a year displayed)
-export CLOCK_HRS_MINS_SEPARATOR=true
+export CLOCK_HRS_MINS_SEPARATOR=false
 
 # Whether to prefer Airly.eu local temperature if available instead of current temperature returned by weather provider. Metric (Celsius) temperature only.
 #export PREFER_AIRLY_LOCAL_TEMP=false
