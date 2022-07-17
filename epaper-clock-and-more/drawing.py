@@ -131,7 +131,7 @@ class Drawing(object):
             offs += im_width
         if use_hrs_mins_separator:
             divider = Image.open('resources/images/clock-middle.bmp')
-            img_buf.paste(divider, (self.CANVAS_WIDTH / 2 - 10, start_pos[1] + 10))
+            img_buf.paste(divider, (int(self.CANVAS_WIDTH / 2) - 10, start_pos[1] + 10))
 
 
     def draw_text_aqi(self, x, y, text, text_size, draw, font_color=255):
