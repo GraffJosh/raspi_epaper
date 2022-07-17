@@ -152,12 +152,12 @@ class Drawing(object):
     
         # lower font size to accommodate time in minutes
         if font_width[0] > 100:
-            font = self.load_font(text_size * 2 / 3)
+            font = self.load_font(int(text_size * 2 / 3))
         font_width = font.getsize(text)
 
         # one more time lower font size to accommodate time in minutes - yes, would be nice to convert value to hours or ... days
         if font_width[0] > 100:
-            font = self.load_font(text_size * 2 / 4)
+            font = self.load_font(int(text_size * 2 / 4))
 
         draw.text((x, y), str(text), font=font, fill=font_color)
 
