@@ -83,6 +83,7 @@ class GMaps(Acquire):
     def get(self):
         try:
             gmaps_data = self.load()
+            print(gmaps_data)
             if gmaps_data is None:
                 return self.DEFAULT
                 
