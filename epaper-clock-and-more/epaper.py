@@ -120,7 +120,10 @@ class EPaper(object):
         os.environ.get("FIRST_TIME_TO_DESTINATION_LON"),
         os.environ.get("GOOGLE_MAPS_UNITS", "metric"),
         "primary",
-        int(os.environ.get("GOOGLE_MAPS_TTL", "10"))
+        int(os.environ.get("GOOGLE_MAPS_TTL", "10")),
+        os.environ.get("GOOGLE_MAPS_MODE_1"),
+        os.environ.get("GOOGLE_MAPS_TRANSIT_MODE_PREF"),
+        os.environ.get("GOOGLE_MAPS_TRANSIT_PREF")
     )
     gmaps2 = GMaps(
         os.environ.get("GOOGLE_MAPS_KEY"),
@@ -130,7 +133,10 @@ class EPaper(object):
         os.environ.get("SECOND_TIME_TO_DESTINATION_LON"),
         os.environ.get("GOOGLE_MAPS_UNITS", "metric"),
         "secondary",
-        int(os.environ.get("GOOGLE_MAPS_TTL", "10"))
+        int(os.environ.get("GOOGLE_MAPS_TTL", "10")),
+        os.environ.get("GOOGLE_MAPS_MODE_2"),
+        os.environ.get("GOOGLE_MAPS_TRANSIT_MODE_PREF"),
+        os.environ.get("GOOGLE_MAPS_TRANSIT_PREF")
     )
     system_info = SystemInfo()
 

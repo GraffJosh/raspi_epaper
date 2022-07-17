@@ -66,24 +66,29 @@ export DARKSKY_TTL=15                       # deprecated (pending removal in 202
 #export METEOALARM_PROVINCE=Kraków
 
 # Units
-export GOOGLE_MAPS_UNITS=metric             # refer to: https://developers.google.com/maps/documentation/distance-matrix/intro#unit_systems for allowed values (metric, imperial)
-export OPENWEATHER_UNITS=metric             # refer to: https://openweathermap.org/api/one-call-api#data for allowed values (metric, imperial, etc)
-export WEATHERBIT_IO_UNITS=M                # refer to: https://www.weatherbit.io/api/weather-current for allowed values (M, I, S)
+export GOOGLE_MAPS_UNITS=imperial             # refer to: https://developers.google.com/maps/documentation/distance-matrix/intro#unit_systems for allowed values (metric, imperial)
+export GOOGLE_MAPS_MODE_1=transit
+export GOOGLE_MAPS_MODE_2=driving
+export GOOGLE_MAPS_TRANSIT_MODE_PREF=train
+export GOOGLE_MAPS_TRANSIT_PREF=fewer_transfers
+
+export OPENWEATHER_UNITS=imperial             # refer to: https://openweathermap.org/api/one-call-api#data for allowed values (metric, imperial, etc)
+export WEATHERBIT_IO_UNITS=I                # refer to: https://www.weatherbit.io/api/weather-current for allowed values (M, I, S)
 export DARK_SKY_UNITS=si                    # refer to: https://darksky.net/dev/docs for allowed values (si, us, auto, etc) - deprecated (pending removal in 2022)
 
 # Warning levels
-export AQI_WARN_LEVEL=75                    # above this value the displayed gauge will become red (on supported displays)
+export AQI_WARN_LEVEL=60                    # above this value the displayed gauge will become red (on supported displays)
 export WEATHER_STORM_DISTANCE_WARN=10       # display warning if storm is closer than this value in km/miles (take a look at units above) - if supported by weather provider
 
 # Lat & lon of destination you want to calculate the current driving time including traffic
-export FIRST_TIME_TO_DESTINATION_LAT=49.9823219
-export FIRST_TIME_TO_DESTINATION_LON=20.0578518
+export FIRST_TIME_TO_DESTINATION_LAT=37.78505
+export FIRST_TIME_TO_DESTINATION_LON=-122.399817
 # The displayed gauge will become red (on supported displays) when driving time exceeds by % 
 export FIRST_TIME_WARN_ABOVE_PERCENT=50
 
 # Lat & lon of second destination (for a second member of a household?) you want to calculate the current driving time including traffic
-export SECOND_TIME_TO_DESTINATION_LAT=49.9684476
-export SECOND_TIME_TO_DESTINATION_LON=20.4303646
+export SECOND_TIME_TO_DESTINATION_LAT=37.334335
+export SECOND_TIME_TO_DESTINATION_LON=-121.889191
 # The displayed gauge will become red (on supported displays) when driving time exceeds by % 
 export SECOND_TIME_WARN_ABOVE_PERCENT=50
 

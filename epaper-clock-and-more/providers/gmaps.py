@@ -18,13 +18,16 @@ class GMaps(Acquire):
     DEFAULT = GMapsTuple(provider='Google Maps', time_to_dest=-1, time_to_dest_in_traffic=-1, distance=-1, origin_address='n/a', destination_address='n/a')    
 
 
-    def __init__(self, key, home_lat, home_lon, dest_lat, dest_lon, units, name, cache_ttl):
+    def __init__(self, key, home_lat, home_lon, dest_lat, dest_lon, units, name, cache_ttl,mode='driving',mode_pref='train',route_pref='fewer_transfers'):
         self.key = key
         self.home_lat = home_lat
         self.home_lon = home_lon
         self.dest_lat = dest_lat
         self.dest_lon = dest_lon
         self.units = units
+        self.mode       = mode
+        self.mode_pref  = mode_pref
+        self.route_pref = route_pref
         self.name = name
         self.cache_ttl = cache_ttl
 
@@ -58,12 +61,15 @@ class GMaps(Acquire):
 
         try:
             r = requests.get(
-                "https://maps.googleapis.com/maps/api/distancematrix/json?units={}&departure_time=now&origins={},{}&destinations={},{}&key={}".format(
+                "https://maps.googleapis.com/maps/api/distancematrix/json?units={}&departure_time=now&origins={},{}&destinations={},{}&mode={}&transit_mode={}&transit_routing_preference={}&key={}".format(
                     self.units,
                     self.home_lat,
                     self.home_lon,
                     self.dest_lat,
                     self.dest_lon,
+                    self.mode,
+                    self.mode_pref,
+                    self.route_pref,
                     self.key
                 ),
             )
