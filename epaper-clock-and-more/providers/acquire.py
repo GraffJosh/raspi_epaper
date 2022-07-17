@@ -68,7 +68,7 @@ class Acquire(object):
                 # write just acquired data to cache
                 fn_cache = self.cache_path()
                 with open(fn_cache,'wb') as fp:
-                    fp.write(response_text)
+                    fp.write(response_text.encode('utf-8'))
         return acquired_data
 
 

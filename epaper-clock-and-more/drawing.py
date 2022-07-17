@@ -122,11 +122,11 @@ class Drawing(object):
             top_y = top_y + 17
             caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
             if black_on_red:
-                self.draw_text(85, top_y, caption, 90, draw, 0)
+                self.draw_text(205, top_y, caption, 60, draw, 0)
             else:
-                self.draw_text(85, top_y, caption, 90, draw, 255)
+                self.draw_text(205, top_y, caption, 60, draw, 255)
                 pass
-            self.draw_text(85, top_y, caption, 90, red_draw, 0)
+            self.draw_text(205, top_y, caption, 60, red_draw, 0)
         else:
             top_y = top_y + 17
             caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
