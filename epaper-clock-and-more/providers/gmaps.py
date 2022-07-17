@@ -49,7 +49,7 @@ class GMaps(Acquire):
             if 'error_message' in response_parsed:
                 logging.warn("GMaps API returned the following error: %s" % response_parsed['error_message'])
                 result = True
-            elif 'duration_in_traffic' not in response_text:
+            elif 'duration_in_traffic' not in response_text and self.mode == 'driving':
                 logging.warn("GMaps API returned no 'duration_in_traffic' data - probably empty or wrong api key /what a strange API that is/")
                 result = True
 
@@ -85,11 +85,16 @@ class GMaps(Acquire):
             gmaps_data = self.load()
             if gmaps_data is None:
                 return self.DEFAULT
+                
+            if self.mode == 'driving':
+                time_in_traffic = gmaps_data['rows'][0]['elements'][0]['duration_in_traffic']['value']
+            else:
+                time_in_traffic = gmaps_data['rows'][0]['elements'][0]['duration']['value']
 
             return GMapsTuple(
                 provider='Google Maps',
                 time_to_dest=gmaps_data['rows'][0]['elements'][0]['duration']['value'],  # in seconds
-                time_to_dest_in_traffic=gmaps_data['rows'][0]['elements'][0]['duration_in_traffic']['value'],  # in seconds
+                time_to_dest_in_traffic=time_in_traffic,  # in seconds
                 distance=gmaps_data['rows'][0]['elements'][0]['distance']['text'],  # in km, string with km
                 origin_address=gmaps_data['origin_addresses'][0],
                 destination_address=gmaps_data['destination_addresses'][0]
