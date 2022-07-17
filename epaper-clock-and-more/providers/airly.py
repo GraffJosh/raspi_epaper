@@ -47,6 +47,7 @@ class Airly(Acquire):
                     "Accept" : "application/json"
                 }
             )
+            print (r.text)
             return r.status_code, r.text
         except Exception as e:
             logging.exception(e)
@@ -58,6 +59,7 @@ class Airly(Acquire):
         try:
             airly_data = self.load()
             if airly_data is None or 'current' not in airly_data or 'values' not in airly_data["current"] or not airly_data["current"]["values"] or not airly_data["current"]["indexes"]:
+                
                 logging.warn("No reasonable data returned by Airly. Check API key (status code) or whether the location has any sensors around (visit: https://airly.eu/map/en/)")
                 return self.DEFAULT
 
