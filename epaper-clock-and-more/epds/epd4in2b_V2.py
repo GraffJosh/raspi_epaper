@@ -164,6 +164,20 @@ class EPD:
         self.send_command(0x12) 
         epdconfig.delay_ms(20)
         self.ReadBusy()
+
+    def display_frame(self, imageblack, imagered):
+        self.send_command(0x10)
+        for i in range(0, int(self.width * self.height / 8)):
+            self.send_data(imageblack[i])
+        
+        self.send_command(0x13)
+        for i in range(0, int(self.width * self.height / 8)):
+            self.send_data(imagered[i])
+        
+        self.send_command(0x12) 
+        epdconfig.delay_ms(20)
+        self.ReadBusy()
+
         
     def Clear(self):
         self.send_command(0x10)
