@@ -88,14 +88,14 @@ class Drawing(object):
         if prefer_airly_local_temp and airly.temperature is not None:
             current_temp = airly.temperature
 
-        caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL.encode('utf-8'))
+        caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
         self.draw_text(85, top_y, caption, 90, draw, 255)
 
         storm_distance_warning = self.storm_distance_warn
 
         if weather.alert_title is not None:
             top_y = top_y + 3
-            caption = "[!] {}".format(weather.alert_title.lower().encode('utf-8'))
+            caption = "[!] {}".format(weather.alert_title.lower())
             draw.rectangle((215, top_y + 5, self.CANVAS_WIDTH - 10, top_y + 95), 255, 255)
             red_draw.rectangle((215, top_y + 5, self.CANVAS_WIDTH - 10, top_y + 95), 0, 0)
             if black_on_red:
@@ -112,7 +112,7 @@ class Drawing(object):
             self.draw_multiline_text(230, top_y, caption, 40, red_draw, 255)    # on red canvas
         else:
             top_y = top_y + 17
-            caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_min, self.TEMPERATURE_SYMBOL.encode('utf-8'), weather.temp_max, self.TEMPERATURE_SYMBOL.encode('utf-8'))
+            caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_min, self.TEMPERATURE_SYMBOL, weather.temp_max, self.TEMPERATURE_SYMBOL)
             self.draw_text(205, top_y, caption, 60, draw, 255)
 
 
