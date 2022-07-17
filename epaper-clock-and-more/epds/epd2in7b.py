@@ -24,14 +24,14 @@
  # THE SOFTWARE.
  #
 
-import epdif
+import epds.epdif
 from PIL import Image
 from PIL import ImageDraw
 import RPi.GPIO as GPIO
 
 # Display resolution
-EPD_WIDTH       = 176
-EPD_HEIGHT      = 264
+EPD_WIDTH       = 400
+EPD_HEIGHT      = 300
 
 # EPD2IN7B commands
 PANEL_SETTING                               = 0x00
