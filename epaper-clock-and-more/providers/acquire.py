@@ -31,7 +31,10 @@ class Acquire(object):
         if os.path.exists(fn_cache):
             logging.info("Loading cache file: %s %s" % (fn_cache, str(type(self))))
             with open(fn_cache) as fp:
-                return json.load(fp)
+                try:
+                    return json.load(fp)
+                except:
+                    return None
 
         return None
 
