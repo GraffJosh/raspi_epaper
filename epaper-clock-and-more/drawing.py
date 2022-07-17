@@ -120,7 +120,7 @@ class Drawing(object):
             self.draw_multiline_text(230, top_y, caption, 40, red_draw, 255)    # on red canvas
         elif int(weather.temp_max)>80:
             top_y = top_y + 17
-            caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
+            caption = "{:0.0f}{}/{:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
             if black_on_red:
                 self.draw_text(205, top_y, caption, 60, draw, 0)
             else:
