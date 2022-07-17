@@ -101,8 +101,8 @@ export CLOCK_HRS_MINS_SEPARATOR=true
 #export PREFER_AIRLY_LOCAL_TEMP=false
 
 # A type of EPAPER display you want to use - either Waveshare 4"2 (b&w) or 2"7 (tri-color) - this automatically sets EPAPER_MONO to "true" for 2"7 and to "false" for 4"2
-#export EPAPER_TYPE=waveshare-4.2
- export EPAPER_TYPE=waveshare-2.7
+export EPAPER_TYPE=waveshare-4.2
+#export EPAPER_TYPE=waveshare-2.7
 # You can override the setting as whether the display is mono or not - though, it will require update (replacement) of relevant epdXinX.py library to support mono or tri-color
 export EPAPER_MONO=false
 # You can override whether to listen for button press (enabled by default)

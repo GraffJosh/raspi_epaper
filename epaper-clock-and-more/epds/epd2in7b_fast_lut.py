@@ -29,7 +29,7 @@
 # so the refresh is about 10 times faster.
 # https://github.com/pskowronek/epaper-clock-and-more
 
-import epds.epdif
+import epds.epdif as epdif
 from PIL import Image
 from PIL import ImageDraw
 import RPi.GPIO as GPIO
