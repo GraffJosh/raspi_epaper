@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import sys
 import os
-picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), '.')
+# picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), '.')
 # libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
 # if os.path.exists(libdir):
 #     sys.path.append(libdir)
@@ -26,11 +26,11 @@ try:
     
     # Drawing on the image
     logging.info("Drawing")    
-    font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
-    font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
+    font24 = ImageFont.truetype('Font.ttc', 24)
+    font18 = ImageFont.truetype('Font.ttc', 18)
     
     # Drawing on the Horizontal image
-    # logging.info("1.Drawing on the Horizontal image...") 
+    logging.info("attempt text") 
     HBlackimage = Image.new('1', (epd.width, epd.height), 255)  # 298*126
     HRYimage = Image.new('1', (epd.width, epd.height), 255)  # 298*126  ryimage: red or yellow image  
     drawblack = ImageDraw.Draw(HBlackimage)
