@@ -94,6 +94,8 @@ class Drawing(object):
         storm_distance_warning = self.storm_distance_warn
 
         if weather.alert_title is not None:
+            caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
+            self.draw_text(85, top_y, caption, 90, draw, 255)
             top_y = top_y + 3
             caption = "[!] {}".format(weather.alert_title.lower())
             draw.rectangle((215, top_y + 5, self.CANVAS_WIDTH - 10, top_y + 95), 255, 255)
@@ -102,6 +104,8 @@ class Drawing(object):
                 self.draw_multiline_text(220, top_y, caption, 23, draw, 0)      # black text
             self.draw_multiline_text(220, top_y, caption, 23, red_draw, 255)    # on red canvas
         elif weather.nearest_storm_distance is not None and weather.nearest_storm_distance <= storm_distance_warning:
+            caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
+            self.draw_text(85, top_y, caption, 90, draw, 255)
             top_y = top_y + 3
             caption = "Storm @ {}{}".format(weather.nearest_storm_distance, self.distance_symbol)
             draw.rectangle((215, top_y + 5, self.CANVAS_WIDTH - 10, top_y + 95), 255, 255)
@@ -111,10 +115,14 @@ class Drawing(object):
                 self.draw_multiline_text(230, top_y, caption, 40, draw, 0)      # black text
             self.draw_multiline_text(230, top_y, caption, 40, red_draw, 255)    # on red canvas
         elif int(weather.temp_max)>80:
+            caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
+            self.draw_text(85, top_y, caption, 90, draw, 255)            
             top_y = top_y + 17
             caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
             self.draw_text(205, top_y, caption, 60, red_draw, 255)
         else:
+            caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
+            self.draw_text(85, top_y, caption, 90, draw, 255)
             top_y = top_y + 17
             caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
             self.draw_text(205, top_y, caption, 60, draw, 255)
