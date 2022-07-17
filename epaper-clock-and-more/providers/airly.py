@@ -37,7 +37,7 @@ class Airly(Acquire):
 
         try:
             r = requests.get(
-                "https://airapi.airly.eu/v2/measurements/point?indexType=AIRLY_CAQI&lat={}&lng={}".format(
+                "https://airapi.airly.eu/v2/measurements/nearest?indexType=AIRLY_CAQI&lat={}&lng={}".format(
                     self.lat,
                     self.lon
                 ),
