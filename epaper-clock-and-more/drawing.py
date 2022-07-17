@@ -140,7 +140,7 @@ class Drawing(object):
 
         # lower font size to accommodate huge polution levels
         if font_dims[0] > 100:
-            font = self.load_font(text_size * 2 / 3)
+            font = self.load_font(int(text_size * 2 / 3))
             draw.text((x, y + 15), str(text), font=font, fill=font_color)
         else:
             draw.text((x, y), str(text), font=font, fill=font_color)
