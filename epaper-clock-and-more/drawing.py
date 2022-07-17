@@ -188,7 +188,7 @@ class Drawing(object):
         buf = black_buf if no_warn else red_buf
 
         back = Image.open("./resources/images/back_eta_{}.bmp".format(idx))
-        buf.paste(back, (((idx + 1) * self.CANVAS_WIDTH) / 3 , 100))
+        buf.paste(back, (int(((idx + 1) * self.CANVAS_WIDTH) / 3 ), 100))
 
         draw = ImageDraw.Draw(buf)
 
