@@ -89,7 +89,6 @@ class Drawing(object):
         current_temp = weather.temp
         if prefer_airly_local_temp and airly.temperature is not None:
             current_temp = airly.temperature
-        print("curr temp: ",int(current_temp))
         caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
         if int(current_temp > 80):
             if black_on_red:
@@ -144,7 +143,6 @@ class Drawing(object):
                 n = "_SPACE"
             fn = 'resources/images/%s.bmp' % n
             img_num = Image.open(fn)
-            print()
             img_num = img_num.resize((img_num.size[0], int(img_num.size[1] / 2)), Image.NEAREST)
             img_buf.paste(img_num, (start_pos[0] + offs, start_pos[1]))
             offs += im_width
@@ -221,7 +219,6 @@ class Drawing(object):
 
     def draw_train_eta(self, idx, black_buf, red_buf, caltrain, warn_above_percent, black_on_red):
         start_pos = (50  + ((idx + 1) * self.CANVAS_WIDTH) / 3, 100)
-        print(caltrain.departure_time)
         time_to_next_departure = (time.mktime(caltrain.departure_time)-time.mktime(time.localtime())) / 60
         time_to_leave = time_to_next_departure - int(os.environ.get('CALTRAIN_WALKING_TIME'))
         if time_to_leave < warn_above_percent:
