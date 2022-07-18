@@ -67,7 +67,6 @@ def _resolve_duration(start, end):
     start_time = time.mktime(start)
     end_time = time.mktime(end)
     seconds = end_time-start_time
-    print(seconds)
     return seconds
 
 caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','duration'])
@@ -92,7 +91,7 @@ class MicroCaltrain:
             line=line.rstrip('\n')
             line=line.rstrip('\r')
             row =line.split(',')
-            print(row)
+            # print(row)
             dir_col = row.index("direction")
             days_col = row.index("days")
             sf_col = row.index("sf")
