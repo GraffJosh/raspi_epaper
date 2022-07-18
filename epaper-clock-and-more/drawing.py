@@ -220,7 +220,7 @@ class Drawing(object):
 
     def draw_train_eta(self, idx, black_buf, red_buf, caltrain, warn_above_percent, black_on_red):
         start_pos = (50  + ((idx + 1) * self.CANVAS_WIDTH) / 3, 100)
-        time_to_next_departure = time.localtime - caltrain.departure_time
+        time_to_next_departure = time.localtime() - caltrain.departure_time
         secs = 1.0 * caltrain.time_to_dest
         
         no_warn = secs < 0 or secs * (100.0 + warn_above_percent) / 100.0 > time_to_next_departure
