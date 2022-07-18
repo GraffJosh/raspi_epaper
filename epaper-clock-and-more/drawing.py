@@ -124,15 +124,15 @@ class Drawing(object):
             top_y = top_y + 17
             caption = "{:0.0f}/{:0.0f}".format(weather.temp_max, weather.temp_min)
             if black_on_red:
-                self.draw_text(205, top_y, caption, 60, draw, 0)
+                self.draw_text(220, top_y, caption, 60, draw, 0)
             else:
-                self.draw_text(205, top_y, caption, 60, draw, 255)
+                self.draw_text(220, top_y, caption, 60, draw, 255)
                 pass
-            self.draw_text(205, top_y, caption, 60, red_draw, 0)
+            self.draw_text(220, top_y, caption, 60, red_draw, 0)
         else:
             top_y = top_y + 17
-            caption = "{:0.0f}{} {:0.0f}{}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
-            self.draw_text(205, top_y, caption, 60, draw, 255)
+            caption = "{:0.0f}/{:0.0f}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
+            self.draw_text(220, top_y, caption, 60, draw, 255)
 
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
