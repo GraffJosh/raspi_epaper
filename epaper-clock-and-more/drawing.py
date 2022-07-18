@@ -3,6 +3,7 @@
 # Original code: https://github.com/prehensile/waveshare-clock
 # Modifications: https://github.com/pskowronek/epaper-clock-and-more, Apache 2 license
 
+import os
 import time
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
@@ -222,13 +223,14 @@ class Drawing(object):
         start_pos = (50  + ((idx + 1) * self.CANVAS_WIDTH) / 3, 100)
         print(caltrain.departure_time)
         time_to_next_departure = (time.mktime(caltrain.departure_time)-time.mktime(time.localtime())) / 60
-        if time_to_next_departure < warn_above_percent:
+        time_to_leave = time_to_next_departure - os.environ.get('CALTRAIN_WALKING_TIME')
+        if time_to_leave < warn_above_percent:
             no_warn = False
         else:
             no_warn = True
         # secs = 1.0 * caltrain.time_to_dest
         
-        # no_warn = secs < 0 or secs * (100.0 + warn_above_percent) / 100.0 > time_to_next_departure
+        # no_warn = secs < 0 or secs * (100.0 + warn_above_percent) / 100.0 > time_to_leave
         buf = black_buf if no_warn else red_buf
 
         back = Image.open("./resources/images/back_eta_{}.bmp".format(idx))
@@ -236,7 +238,7 @@ class Drawing(object):
 
         draw = ImageDraw.Draw(buf)
 
-        caption = "%2i" % int(round(time_to_next_departure))
+        caption = "%2i" % int(round(time_to_leave))
 
         if not no_warn and black_on_red:
             black_draw = ImageDraw.Draw(black_buf)

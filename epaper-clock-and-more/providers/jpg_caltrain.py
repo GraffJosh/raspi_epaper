@@ -74,9 +74,10 @@ caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','durati
 
 class MicroCaltrain:
 
-    def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law') -> None:
+    def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=20) -> None:
         self.start = start
         self.end = end
+        self.walking_time=walking_time
         self.filename=filename
 
     #a=start (sf,sv,law)
@@ -137,9 +138,8 @@ class MicroCaltrain:
         else:
             direction = 1
         next_trips = self.next_trips(a=self.start,b=self.end,direction=direction)
-
         return caltrain_tuple(
             departure_time=next_trips[0][0],
             arrival_time=next_trips[0][1],
-            duration=next_trips[0][2]
+            duration=next_trips[0][2],
             )
