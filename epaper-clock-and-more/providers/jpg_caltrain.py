@@ -7,7 +7,7 @@ def time_from_str(time_str):
     pm = 0 if time[1][2:4]=='am' or int(time[0]) == 12 else 1
     hours = int(time[0])+12 if pm else int(time[0])
     minutes = int(time[1][0:2])
-    print(hours,minutes)
+    # print(hours,minutes)
     return _create_time(hour=hours,minute=minutes)
 
 def get_pdt():
@@ -132,12 +132,12 @@ class MicroCaltrain:
 
         return trips_list
 
-    def get(self,next_time):
+    def get(self,after):
         if self.start.lower() is 'sf':
             direction = 0
         else:
             direction = 1
-        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=next_time)
+        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
         return caltrain_tuple(
             departure_time=next_trips[0][0],
             arrival_time=next_trips[0][1],
