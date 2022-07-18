@@ -4,6 +4,7 @@
 import logging
 import json
 import os
+import time
 from PIL import Image
 
 from drawing import Drawing
@@ -260,7 +261,7 @@ class EPaper(object):
             logging.info("--- gmaps2: " + json.dumps(gmaps2_data))
 
             caltrain_data = self.caltrain.get()
-            logging.info("--- caltrain: " + caltrain_data.departure_time)
+            logging.info("--- caltrain: " + time.asctime(caltrain_data.departure_time))
 
             black_frame, red_frame = self.drawing.draw_frame(
                 self.MONO_DISPLAY,
