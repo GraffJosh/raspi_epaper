@@ -261,7 +261,7 @@ class EPaper(object):
             gmaps2_data = self.gmaps2.get()
             logging.info("--- gmaps2: " + json.dumps(gmaps2_data))
 
-            caltrain_data = self.caltrain.get(next_time=(time.localtime(time.mktime(time.localtime())+(int(self.walking_time)*60))))
+            caltrain_data = self.caltrain.get(after=(time.localtime(time.mktime(time.localtime())+(int(self.walking_time)*60))))
             logging.info("--- caltrain: " + time.asctime(caltrain_data.departure_time))
 
             black_frame, red_frame = self.drawing.draw_frame(
