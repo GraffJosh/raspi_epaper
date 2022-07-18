@@ -223,7 +223,7 @@ class Drawing(object):
         start_pos = (50  + ((idx + 1) * self.CANVAS_WIDTH) / 3, 100)
         print(caltrain.departure_time)
         time_to_next_departure = (time.mktime(caltrain.departure_time)-time.mktime(time.localtime())) / 60
-        time_to_leave = time_to_next_departure - os.environ.get('CALTRAIN_WALKING_TIME')
+        time_to_leave = time_to_next_departure - int(os.environ.get('CALTRAIN_WALKING_TIME'))
         if time_to_leave < warn_above_percent:
             no_warn = False
         else:
