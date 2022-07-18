@@ -19,6 +19,7 @@ from providers.meteoalarm import Meteoalarm
 from providers.gmaps import GMaps
 from providers.system_info import SystemInfo
 
+from providers.jpg_caltrain import MicroCaltrain
 
 class EPaper(object):
 
@@ -138,6 +139,11 @@ class EPaper(object):
         os.environ.get("GOOGLE_MAPS_TRANSIT_MODE_PREF"),
         os.environ.get("GOOGLE_MAPS_TRANSIT_PREF")
     )
+    caltrain = MicroCaltrain(
+        filename=os.path.dirname(os.path.abspath(__file__)),
+        start=os.environ.get('CALTRAIN_START'),
+        end=os.environ.get('CALTRAIN_END'))
+    
     system_info = SystemInfo()
 
 
@@ -253,6 +259,8 @@ class EPaper(object):
             gmaps2_data = self.gmaps2.get()
             logging.info("--- gmaps2: " + json.dumps(gmaps2_data))
 
+            caltrain_data = self.caltrain.get()
+
             black_frame, red_frame = self.drawing.draw_frame(
                 self.MONO_DISPLAY,
                 formatted,
@@ -262,7 +270,8 @@ class EPaper(object):
                 self.WARN_PAINTED_BLACK_ON_RED,
                 aqi_data,
                 gmaps1_data,
-                gmaps2_data
+                gmaps2_data,
+                caltrain_data
             )
             self.display_buffer(black_frame, red_frame, dt)
 

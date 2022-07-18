@@ -217,6 +217,26 @@ class Drawing(object):
 
         self.draw_text_eta(start_pos[0], start_pos[1], caption, 70, draw, 255)
 
+    def draw_train_eta(self, idx, black_buf, red_buf, caltrain, warn_above_percent, black_on_red):
+        start_pos = (50  + ((idx + 1) * self.CANVAS_WIDTH) / 3, 100)
+        secs_in_traffic = 1.0 * caltrain.time_to_dest_in_traffic
+        secs = 1.0 * caltrain.time_to_dest
+        
+        no_warn = secs < 0 or secs * (100.0 + warn_above_percent) / 100.0 > secs_in_traffic
+        buf = black_buf if no_warn else red_buf
+
+        back = Image.open("./resources/images/back_eta_{}.bmp".format(idx))
+        buf.paste(back, (int(((idx + 1) * self.CANVAS_WIDTH) / 3 ), 100))
+
+        draw = ImageDraw.Draw(buf)
+
+        caption = "%2i" % int(round(secs_in_traffic / 60))
+
+        if not no_warn and black_on_red:
+            black_draw = ImageDraw.Draw(black_buf)
+            self.draw_text_eta(start_pos[0], start_pos[1], caption, 70, black_draw, 0)  # black font on red canvas below
+
+        self.draw_text_eta(start_pos[0], start_pos[1], caption, 70, draw, 255)
 
     def draw_shutdown(self, is_mono):
         black_buf = Image.new('1', (self.CANVAS_WIDTH, self.CANVAS_HEIGHT), 1)
@@ -316,7 +336,7 @@ class Drawing(object):
         return black_buf, red_buf
 
 
-    def draw_frame(self, is_mono, formatted_time, use_hrs_mins_separator, weather, prefer_airly_local_temp, black_on_red, aqi, gmaps1, gmaps2):
+    def draw_frame(self, is_mono, formatted_time, use_hrs_mins_separator, weather, prefer_airly_local_temp, black_on_red, aqi, gmaps1, gmaps2,caltrain_data):
         black_buf = Image.new('1', (self.CANVAS_WIDTH, self.CANVAS_HEIGHT), 1)
 
         # for mono display we simply use black buffer so all the painting will be done in black
@@ -326,7 +346,7 @@ class Drawing(object):
         self.draw_clock(black_buf, formatted_time, use_hrs_mins_separator)
 
         # draw time to dest into buffer
-        self.draw_eta(0, black_buf, red_buf, gmaps1, self.primary_time_warn_above, black_on_red)
+        self.draw_train_eta(0, black_buf, red_buf, caltrain_data, self.primary_time_warn_above, black_on_red)
 
         # draw time to dest into buffer
         self.draw_eta(1, black_buf, red_buf, gmaps2, self.secondary_time_warn_above, black_on_red)
