@@ -317,7 +317,8 @@ class Drawing(object):
         self.draw_text(10, 10, provider_text, provider_text_size, draw)
 
         self.draw_text(10, 65, "Temperature: {}{}".format(weather.temp, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
-        self.draw_text(10, 95, "Daily min: {}{}, max: {}{}".format(weather.temp_min, self.TEMPERATURE_SYMBOL.encode('utf-8'), weather.temp_max, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
+        # self.draw_text(10, 95, "Daily min: {}{}, max: {}{}".format(weather.temp_min, self.TEMPERATURE_SYMBOL.encode('utf-8'), weather.temp_max, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
+        self.draw_text(10, 95, "Daily min: {}, max: {}".format(weather.temp_min, weather.temp_max), 30, draw)
         y = self.draw_multiline_text(10, 145, "Daily summary: {}".format(weather.summary.encode('utf-8')), 25, draw)
     
         caption = None
