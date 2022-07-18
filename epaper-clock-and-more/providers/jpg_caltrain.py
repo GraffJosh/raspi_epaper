@@ -132,12 +132,12 @@ class MicroCaltrain:
 
         return trips_list
 
-    def get(self):
+    def get(self,next_time):
         if self.start.lower() is 'sf':
             direction = 0
         else:
             direction = 1
-        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction)
+        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=next_time)
         return caltrain_tuple(
             departure_time=next_trips[0][0],
             arrival_time=next_trips[0][1],

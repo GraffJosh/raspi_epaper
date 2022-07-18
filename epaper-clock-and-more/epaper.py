@@ -144,6 +144,7 @@ class EPaper(object):
         filename=os.path.dirname(os.path.abspath(__file__))+'/providers/caltrain_data.csv',
         start=os.environ.get('CALTRAIN_START'),
         end=os.environ.get('CALTRAIN_END'))
+    walking_time = os.environ.get('CALTRAIN_WALKING_TIME')
     
     system_info = SystemInfo()
 
@@ -260,7 +261,7 @@ class EPaper(object):
             gmaps2_data = self.gmaps2.get()
             logging.info("--- gmaps2: " + json.dumps(gmaps2_data))
 
-            caltrain_data = self.caltrain.get()
+            caltrain_data = self.caltrain.get(after=(time.localtime(time.mktime(time.localtime()))+self.walking_time))
             logging.info("--- caltrain: " + time.asctime(caltrain_data.departure_time))
 
             black_frame, red_frame = self.drawing.draw_frame(
