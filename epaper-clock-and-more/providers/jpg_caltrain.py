@@ -7,10 +7,11 @@ def time_from_str(time_str):
     pm = 0 if time[1][2:4]=='am' or int(time[0]) == 12 else 1
     hours = int(time[0])+12 if pm else int(time[0])
     minutes = int(time[1][0:2])
+    print(hours,minutes)
     return _create_time(hour=hours,minute=minutes)
 
 def get_pdt():
-    return time.localtime(time.mktime(time.localtime())-7*3600)
+    return time.localtime(time.mktime(time.localtime()))
 
 _BASE_DATE = time.localtime(0)
 _YEAR = 0
@@ -21,46 +22,53 @@ _MINUTE = 4
 _SECOND = 5
 _WEEKDAY    = 6
 _YEARDAY    = 7
-def _create_time(year=None,month=None,day=None,hour=None,minute=None,second=None,weekday=None,yearday=None):
+def _create_time(year=None,month=None,day=None,hour=None,minute=None,second=None,weekday=None,yearday=None,dst=-1):
     curr_time = get_pdt()
     if not year : 
-        _year = curr_time[_YEAR]
+        _year = curr_time.tm_year
     else:
         _year = year
     if not month : 
-        _month = curr_time[_MONTH]
+        _month = curr_time.tm_mon
     else:
         _month = month
     if not day : 
-        _day = curr_time[_DAY]
+        _day = curr_time.tm_mday
     else:
         _day = day
     if not hour : 
-        _hour = curr_time[_HOUR]
+        _hour = curr_time.tm_hour
     else:
         _hour = hour
     if not minute : 
-        _minute = curr_time[_MINUTE]
+        _minute = curr_time.tm_min
     else:
         _minute = minute
     if not second : 
-        _second = curr_time[_SECOND]
+        _second = curr_time.tm_sec
     else:
         _second = second
     if not weekday : 
-        _weekday = curr_time[_WEEKDAY]
+        _weekday = curr_time.tm_wday
     else:
         _weekday = weekday
     if not yearday : 
-        _yearday = curr_time[_YEARDAY]
+        _yearday = curr_time.tm_yday
     else:
         _yearday = yearday
-    return time.localtime(time.mktime((_year,_month,_day,_hour,_minute,_second,_weekday,_yearday)))
+    if not dst : 
+        _dst = curr_time.dst
+    else:
+        _dst = dst
+    
+    return time.localtime(time.mktime((_year,_month,_day,_hour,_minute,_second,_weekday,_yearday,_dst)))
 
 def _resolve_duration(start, end):
     start_time = time.mktime(start)
     end_time = time.mktime(end)
-    return time.localtime(end_time-start_time)
+    seconds = end_time-start_time
+    print(seconds)
+    return seconds
 
 caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','duration'])
 
@@ -123,7 +131,6 @@ class MicroCaltrain:
                     break
 
         return trips_list
-
 
     def get(self):
         if self.start.lower() is 'sf':

@@ -3,6 +3,7 @@
 # Original code: https://github.com/prehensile/waveshare-clock
 # Modifications: https://github.com/pskowronek/epaper-clock-and-more, Apache 2 license
 
+import time
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
 
@@ -219,10 +220,10 @@ class Drawing(object):
 
     def draw_train_eta(self, idx, black_buf, red_buf, caltrain, warn_above_percent, black_on_red):
         start_pos = (50  + ((idx + 1) * self.CANVAS_WIDTH) / 3, 100)
-        secs_in_traffic = 1.0 * caltrain.time_to_dest_in_traffic
+        time_to_next_departure = time.localtime - caltrain.departure_time
         secs = 1.0 * caltrain.time_to_dest
         
-        no_warn = secs < 0 or secs * (100.0 + warn_above_percent) / 100.0 > secs_in_traffic
+        no_warn = secs < 0 or secs * (100.0 + warn_above_percent) / 100.0 > time_to_next_departure
         buf = black_buf if no_warn else red_buf
 
         back = Image.open("./resources/images/back_eta_{}.bmp".format(idx))
@@ -230,7 +231,7 @@ class Drawing(object):
 
         draw = ImageDraw.Draw(buf)
 
-        caption = "%2i" % int(round(secs_in_traffic / 60))
+        caption = "%2i" % int(round(time_to_next_departure / 60))
 
         if not no_warn and black_on_red:
             black_draw = ImageDraw.Draw(black_buf)
