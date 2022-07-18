@@ -140,7 +140,7 @@ class EPaper(object):
         os.environ.get("GOOGLE_MAPS_TRANSIT_PREF")
     )
     caltrain = MicroCaltrain(
-        filename=os.path.dirname(os.path.abspath(__file__)+'caltrain_data.csv'),
+        filename=os.path.dirname(os.path.abspath(__file__))+'caltrain_data.csv',
         start=os.environ.get('CALTRAIN_START'),
         end=os.environ.get('CALTRAIN_END'))
     
