@@ -89,7 +89,7 @@ class MicroCaltrain:
     #after=only get times after tuple
     #count=return n trains
     def next_trips(self, a='sf', b='law',direction=0, after=get_pdt(),count=1):
-        after = time.localtime(time.mktime(after)+(20*60))
+        self.after = time.localtime(time.mktime(after)+(20*60))
         trips_list = []
         with open(self.filename, "r") as csvfile:
             line=csvfile.readline().lower()
