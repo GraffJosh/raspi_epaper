@@ -4,11 +4,14 @@ import gc
 
 def time_from_str(time_str):
     time = time_str.split(':')
-    pm = 0 if time[1][2:4]=='am' or int(time[0]) == 12 else 1
-    hours = int(time[0])+12 if pm else int(time[0])
-    minutes = int(time[1][0:2])
-    # print(hours,minutes)
-    return _create_time(hour=hours,minute=minutes)
+    if time:
+        pm = 0 if time[1][2:4]=='am' or int(time[0]) == 12 else 1
+        hours = int(time[0])+12 if pm else int(time[0])
+        minutes = int(time[1][0:2])
+        # print(hours,minutes)
+        return _create_time(hour=hours,minute=minutes)
+    else:
+        return _create_time()
 
 def get_pdt():
     return time.localtime(time.mktime(time.localtime()))
@@ -74,7 +77,7 @@ caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','durati
 
 class MicroCaltrain:
 
-    def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=20) -> None:
+    def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=0) -> None:
         self.start = start
         self.end = end
         self.walking_time=walking_time
@@ -86,6 +89,7 @@ class MicroCaltrain:
     #after=only get times after tuple
     #count=return n trains
     def next_trips(self, a='sf', b='law',direction=0, after=get_pdt(),count=1):
+        after = time.localtime(time.mktime(after)+(20*60))
         trips_list = []
         with open(self.filename, "r") as csvfile:
             line=csvfile.readline().lower()
@@ -132,12 +136,12 @@ class MicroCaltrain:
 
         return trips_list
 
-    def get(self,after):
+    def get(self):
         if self.start.lower() is 'sf':
             direction = 0
         else:
             direction = 1
-        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
+        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=self.after)
         return caltrain_tuple(
             departure_time=next_trips[0][0],
             arrival_time=next_trips[0][1],
