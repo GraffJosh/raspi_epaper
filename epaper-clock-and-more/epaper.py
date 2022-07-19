@@ -144,7 +144,7 @@ class EPaper(object):
         filename=os.path.dirname(os.path.abspath(__file__))+'/providers/caltrain_data.csv',
         start=os.environ.get('CALTRAIN_START'),
         end=os.environ.get('CALTRAIN_END'),
-        walking_time = os.environ.get('CALTRAIN_WALKING_TIME'))
+        walking_time = float(os.environ.get('CALTRAIN_WALKING_TIME')))
     
     system_info = SystemInfo()
 
