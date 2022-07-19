@@ -123,7 +123,7 @@ class MicroCaltrain:
                 if str(after[_WEEKDAY]) not in days:
                     continue
 
-                if str(row[departure_col]) is "--" or str(row[arrival_col]) is "--":
+                if str(row[departure_col]) == '--' or str(row[arrival_col]) == '--':
                     continue
 
                 #if we're going south
