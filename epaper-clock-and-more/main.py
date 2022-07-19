@@ -55,7 +55,7 @@ def main():
     global epaper
     global shutting_down
     global details_to_display
-    time.sleep(30)
+    # time.sleep(30)
     epaper = EPaper(debug_mode=DEBUG_MODE)
 
     atexit.register(shutdown_hook)
