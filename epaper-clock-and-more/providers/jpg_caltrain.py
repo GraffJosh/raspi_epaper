@@ -139,7 +139,7 @@ class MicroCaltrain:
         return trips_list
 
     def get(self):
-        if self.start.lower() is 'sf':
+        if self.start.lower() == 'sf':
             direction = 0
         else:
             direction = 1
