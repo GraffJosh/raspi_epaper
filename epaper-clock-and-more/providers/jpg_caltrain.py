@@ -4,14 +4,16 @@ import gc
 
 def time_from_str(time_str):
     time = time_str.split(':')
-    if time:
+    try:
         pm = 0 if time[1][2:4]=='am' or int(time[0]) == 12 else 1
         hours = int(time[0])+12 if pm else int(time[0])
         minutes = int(time[1][0:2])
         # print(hours,minutes)
         return _create_time(hour=hours,minute=minutes)
-    else:
+    except:
+        print(time)
         return _create_time()
+
 
 def get_pdt():
     return time.localtime(time.mktime(time.localtime()))
