@@ -73,7 +73,7 @@ class Acquire(object):
                 acquired_data = json.loads(response_text)
                 # write just acquired data to cache
                 fn_cache = self.cache_path()
-                with open(fn_cache,'w') as fp:
+                with open(fn_cache,'wb') as fp:
                     fp.write(response_text.encode('utf-8'))
         return acquired_data
 
