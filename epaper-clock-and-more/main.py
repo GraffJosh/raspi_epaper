@@ -37,7 +37,7 @@ import sdnotify
 
 import time
 from pytz import timezone
-from datetime import datetime
+from datetime import date, datetime
 from tzlocal import get_localzone
 
 from epaper import EPaper
@@ -145,8 +145,7 @@ def action_button(key, epaper):
 
 
 def refresh_main_screen(epaper:EPaper, force = False):
-    utc_dt = time.localtime(time.mktime(datetime.now(timezone('UTC')))+60)  
-    # time readings should be done in epaper itself (probably using acquire.py w/o caching)
+    utc_dt = datetime.now(timezone('UTC'))+ datetime.timedelta(seconds=60)  # time readings should be done in epaper itself (probably using acquire.py w/o caching)
     dt = utc_dt.astimezone(get_localzone())
     
     time_format = "%H%M"                                                                                                                                                 
