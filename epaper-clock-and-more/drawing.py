@@ -153,7 +153,7 @@ class Drawing(object):
             min_until = (str(int(time_until.total_seconds() // 60)))
             title=title[:(max_text_len-len(min_until)-flavor_text_len)]
             if int(min_until) > 60:
-                text = title + ' in ' + str(int(min_until)/60)[:3] + ' hours.'
+                text = title + ' in ' + str(round(int(min_until)/60,1)) + ' hours.'
             else:
                 text = title + ' in ' + min_until + ' min.'
             y = self.draw_text(x+10,y,text,text_height,draw,255)[1]
