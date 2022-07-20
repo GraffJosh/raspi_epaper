@@ -140,7 +140,7 @@ class Drawing(object):
         back = Image.open('./resources/images/back.bmp')
         buf.paste(back, start_pos)
 
-        self.draw_text(start_pos[0],start_pos[1],next_events[0].title,20,draw,0)
+        self.draw_text(start_pos[0],start_pos[1],next_events[0].title,20,draw,255)
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
         start_pos = (0, 0)
