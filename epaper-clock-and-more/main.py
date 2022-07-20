@@ -195,6 +195,7 @@ def init_logging():
 
 
 if __name__ == '__main__':
+    print("MAIN STARTING")
     init_logging()
     try:
         main()
