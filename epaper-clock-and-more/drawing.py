@@ -163,8 +163,8 @@ class Drawing(object):
         buf.paste(back, (x,y))
         text_height = 90
         text_positions = self.draw_text(x+10,y,formatted_time,text_height,draw,255)
-        x=text_positions[0]
-        self.draw_text(x+10,y,"JPG Ind",text_height,draw,255)
+        return text_positions
+        # self.draw_text(x+10,y,"JPG Ind",text_height,draw,255)
         # start_pos = (0, 0)
         # im_width = 100
         # offs = 0
