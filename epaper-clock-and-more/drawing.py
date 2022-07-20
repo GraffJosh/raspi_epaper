@@ -141,11 +141,12 @@ class Drawing(object):
         draw = ImageDraw.Draw(buf)
         back = Image.open('./resources/images/back.bmp')
         buf.paste(back, (x,y))
-        text_height = 20
-        for event in next_events:
-            time_until = datetime.datetime.now() - event.start_time 
+        text_height = 40
+        max_events = 2
+        for event_num in range(min(len(next_events),max_events)):
+            time_until = datetime.datetime.now() - next_events[event_num].start_time 
             print(time_until.seconds//60)
-            text = event.title + ' in ' + str(time_until.seconds//60)
+            text = next_events[event_num].title + ' in ' + str(time_until.seconds//60)
             self.draw_text(x+10,y,text,text_height,draw,255)
             y = y + text_height + 5
 
