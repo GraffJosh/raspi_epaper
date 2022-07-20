@@ -146,7 +146,7 @@ class Drawing(object):
         for event_num in range(min(len(next_events),max_events)):
             time_until = next_events[event_num].start_time - datetime.datetime.now() 
             print(time_until.total_seconds() // 60)
-            text = next_events[event_num].title + ' in ' + (str(time_until.total_seconds() // 60))
+            text = next_events[event_num].title + ' in ' + (str(int(time_until.total_seconds() // 60))) + ' min.'
             self.draw_text(x+10,y,text,text_height,draw,255)
             y = y + text_height + 5
 
