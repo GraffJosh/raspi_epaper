@@ -1,5 +1,6 @@
 from collections import namedtuple
 from datetime import datetime
+from dateutil import parser
 import json
 import os
 import time
@@ -158,9 +159,9 @@ class MicroCaltrain(Acquire):
         train_data = self.load()
         if train_data:
             return caltrain_tuple(
-                departure_time=train_data[0][0],
-                arrival_time=train_data[0][1],
-                duration=train_data[0][2],
+                departure_time=parser.parse(train_data[0][0]),
+                arrival_time=parser.parse(train_data[0][1]),
+                duration=int(train_data[0][2]),
                 )
         else:
             return self.DEFAULT

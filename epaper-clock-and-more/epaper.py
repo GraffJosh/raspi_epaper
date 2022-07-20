@@ -30,6 +30,7 @@ class EPaper(object):
     DEAD_TIMES = eval(os.environ.get("DEAD_TIMES", "[]"))
     # whether to display two vertical dots to separate hrs and mins
     CLOCK_HOURS_MINS_SEPARATOR = os.environ.get("CLOCK_HRS_MINS_SEPARATOR", "true") == "true"
+    TWENTY_FOUR_HOUR_TIME = os.environ.get("TWENTY_FOUR_HOUR_TIME", "true") == "true"
     # whether to prefer AQI temperature instead of DarkSky's
     PREFER_AIRLY_LOCAL_TEMP = os.environ.get("PREFER_AIRLY_LOCAL_TEMP", "false") == "true"
     # warn states painted black instead of white on red canvas?
