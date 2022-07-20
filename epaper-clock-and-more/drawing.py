@@ -133,6 +133,14 @@ class Drawing(object):
             caption = "{:0.0f}/{:0.0f}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
             self.draw_text(230, top_y, caption, 60, draw, 255)
 
+    def draw_next_events(self, buf, next_events):
+        start_pos = (0, 0)
+    
+        draw = ImageDraw.Draw(buf)
+        back = Image.open('./resources/images/back.bmp')
+        buf.paste(back, start_pos)
+
+        self.draw_text(start_pos[0],start_pos[1],next_events[0].title,20,draw,0)
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
         start_pos = (0, 0)
@@ -341,15 +349,18 @@ class Drawing(object):
         return black_buf, red_buf
 
 
-    def draw_frame(self, is_mono, formatted_time, use_hrs_mins_separator, weather, prefer_airly_local_temp, black_on_red, aqi, gmaps1, gmaps2,caltrain_data):
+    def draw_frame(self, is_mono, formatted_time, use_hrs_mins_separator, weather, prefer_airly_local_temp, black_on_red, aqi, gmaps1, gmaps2,caltrain_data,next_events):
         black_buf = Image.new('1', (self.CANVAS_WIDTH, self.CANVAS_HEIGHT), 1)
 
         # for mono display we simply use black buffer so all the painting will be done in black
         red_buf = black_buf if (is_mono) else Image.new('1', (self.CANVAS_WIDTH, self.CANVAS_HEIGHT), 1)
 
-        # draw clock into buffer
-        self.draw_clock(black_buf, formatted_time, use_hrs_mins_separator)
-
+        if next_events[0].title != '':
+            self.draw_next_events(black_buf,next_events)
+        else:
+            # draw clock into buffer
+            self.draw_clock(black_buf, formatted_time, use_hrs_mins_separator)
+        
         # draw time to dest into buffer
         self.draw_train_eta(0, black_buf, red_buf, caltrain_data, self.primary_time_warn_above, black_on_red)
 

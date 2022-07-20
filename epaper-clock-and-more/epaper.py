@@ -21,6 +21,7 @@ from providers.gmaps import GMaps
 from providers.system_info import SystemInfo
 
 from providers.jpg_caltrain import MicroCaltrain
+from providers.cal_events import CalendarEvents
 
 class EPaper(object):
 
@@ -102,7 +103,7 @@ class EPaper(object):
             os.environ.get("DARKSKY_KEY"),
             os.environ.get("LAT"),
             os.environ.get("LON"),
-            os.environ.get("DARKSKY_UNITS", "si"),
+                os.environ.get("DARKSKY_UNITS", "si"),
             int(os.environ.get("DARKSKY_TTL", "15"))
         )
 
@@ -146,6 +147,7 @@ class EPaper(object):
         end=os.environ.get('CALTRAIN_END'),
         walking_time = float(os.environ.get('CALTRAIN_WALKING_TIME')))
     
+    cal = CalendarEvents(cal_url=os.environ.get('CALENDAR_URL'))
     system_info = SystemInfo()
 
 
@@ -264,6 +266,9 @@ class EPaper(object):
             caltrain_data = self.caltrain.get()
             logging.info("--- caltrain: " + time.asctime(caltrain_data.departure_time))
 
+            next_events = self.cal.get()
+            logging.info("--- events: " + time.asctime(next_events[0]))
+
             black_frame, red_frame = self.drawing.draw_frame(
                 self.MONO_DISPLAY,
                 formatted,
@@ -274,7 +279,8 @@ class EPaper(object):
                 aqi_data,
                 gmaps1_data,
                 gmaps2_data,
-                caltrain_data
+                caltrain_data,
+                next_events
             )
             self.display_buffer(black_frame, red_frame, dt)
 
