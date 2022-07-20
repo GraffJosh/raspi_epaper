@@ -42,10 +42,10 @@ class CalendarEvents(Acquire):
                 allday = event['is_allday']
                 print("start time",start_time)
                 print("today: ",datetime.today())
-                print("difference: ",time_until)
+                print("difference: ",time_until.total_seconds())
                 if not allday:
-                    print("time until ",event['title'],": ",(time_until.seconds // 60))
-                    if (time_until.seconds // 60) < self.timeframe:
+                    print("time until ",event['title'],": ",(time_until.total_seconds() // 60))
+                    if (time_until.total_seconds() // 60) < self.timeframe:
                         next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                 else:
                     next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
