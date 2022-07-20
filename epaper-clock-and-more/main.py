@@ -74,7 +74,7 @@ def main():
         time.sleep(1)
     
     atexit.register(shutdown_hook)
-    # signal.signal(signal.SIGTERM, signal_hook)
+    signal.signal(signal.SIGTERM, signal_hook)
 
     buttons = None
     if not DEBUG_MODE and (os.environ.get("EPAPER_BUTTONS_ENABLED", "true") == "true"):
@@ -144,8 +144,9 @@ def action_button(key, epaper):
         details_to_display = None
 
 
-def refresh_main_screen(epaper, force = False):
-    utc_dt = datetime.now(timezone('UTC'))  # time readings should be done in epaper itself (probably using acquire.py w/o caching)
+def refresh_main_screen(epaper:EPaper, force = False):
+    utc_dt = time.localtime(time.mktime(datetime.now(timezone('UTC')))+60)  
+    # time readings should be done in epaper itself (probably using acquire.py w/o caching)
     dt = utc_dt.astimezone(get_localzone())
     
     time_format = "%H%M"                                                                                                                                                 
