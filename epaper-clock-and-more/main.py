@@ -57,7 +57,14 @@ def main():
     global details_to_display
     # time.sleep(30)
     epaper = EPaper(debug_mode=DEBUG_MODE)
-
+    import socket
+    first = True
+    while socket.gethostbyname(socket.gethostname()) == "127.0.0.1":
+        if first:
+            first = False
+            shutdown_hook()
+        time.sleep(1)
+    
     atexit.register(shutdown_hook)
     signal.signal(signal.SIGTERM, signal_hook)
 
