@@ -41,6 +41,7 @@ class CalendarEvents(Acquire):
                 allday = event['is_allday']
                 # print("start time",start_time)
                 seconds_until = (datetime.now() - start_time)
+                print("time until: ",seconds_until.seconds//60)
                 if (seconds_until.seconds // 60) > self.timeframe:
                     next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                 
