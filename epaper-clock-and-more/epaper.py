@@ -242,9 +242,9 @@ class EPaper(object):
 
     def display_main_screen(self, dt, force = False):
         if self.TWENTY_FOUR_HOUR_TIME:
-            hours_format = '%H'
+            hours_format = '%-H'
         else:
-            hours_format = '%I'
+            hours_format = '%-I'
         if self.CLOCK_HOURS_MINS_SEPARATOR:
             time_format = hours_format+':'+"%M"
         else:
