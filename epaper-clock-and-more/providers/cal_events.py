@@ -10,9 +10,10 @@ import requests
 CalEventTuple = namedtuple('calEvent', ['title','start_time','is_allday'])
 
 class CalendarEvents(Acquire):
-    DEFAULT=CalEventTuple(title='',start_time=None,is_allday=False)
-    def __init__(self,cal_url:str) -> None:
+    DEFAULT=None #CalEventTuple(title='',start_time=None,is_allday=False)
+    def __init__(self,cal_url:str,timeframe:int) -> None:
         self.cal_url =cal_url
+        self.timeframe = timeframe
         pass
 
     def cache_name(self):
@@ -39,7 +40,9 @@ class CalendarEvents(Acquire):
                 start_time = start_time.replace(tzinfo=None)
                 allday = event['is_allday']
                 # print("start time",start_time)
-                next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
+                seconds_until = (datetime.now() - start_time)
+                if (seconds_until // 60) > self.timeframe:
+                    next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                 
             return next_events
         

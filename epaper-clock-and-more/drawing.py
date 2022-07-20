@@ -362,7 +362,7 @@ class Drawing(object):
         # for mono display we simply use black buffer so all the painting will be done in black
         red_buf = black_buf if (is_mono) else Image.new('1', (self.CANVAS_WIDTH, self.CANVAS_HEIGHT), 1)
 
-        if next_events[0].title != '':
+        if next_events:
             self.draw_next_events(black_buf,next_events)
         else:
             # draw clock into buffer

@@ -147,7 +147,7 @@ class EPaper(object):
         end=os.environ.get('CALTRAIN_END'),
         walking_time = float(os.environ.get('CALTRAIN_WALKING_TIME')))
     
-    cal = CalendarEvents(cal_url=os.environ.get('CALENDAR_URL'))
+    cal = CalendarEvents(cal_url=os.environ.get('CALENDAR_URL'),timeframe=os.environ.get('NEXT_CAL_MINUTES'))
     system_info = SystemInfo()
 
 
@@ -267,7 +267,8 @@ class EPaper(object):
             logging.info("--- caltrain: " + time.asctime(caltrain_data.departure_time))
 
             next_events = self.cal.get()
-            logging.info("--- events: " + next_events[0].title)
+            if next_events:
+                logging.info("--- events: " + next_events[0].title)
 
             black_frame, red_frame = self.drawing.draw_frame(
                 self.MONO_DISPLAY,
