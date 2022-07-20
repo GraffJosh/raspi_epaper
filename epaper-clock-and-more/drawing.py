@@ -148,27 +148,34 @@ class Drawing(object):
         for event_num in range(min(len(next_events),max_events)):
             title = next_events[event_num].title
             time_until = next_events[event_num].start_time - datetime.datetime.now() 
-            print(time_until.total_seconds() // 60)
+            # print(time_until.total_seconds() // 60)
             min_until = (str(int(time_until.total_seconds() // 60)))
             title=title[:(max_text_len-len(min_until)-flavor_text_len)]
             text = title + ' in ' + min_until + ' min.'
             y = self.draw_text(x+10,y,text,text_height,draw,255)
 
-    def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
-        start_pos = (0, 0)
-        im_width = 100
-        offs = 0
-        for n in formatted_time:
-            if n == " ":
-                n = "_SPACE"
-            fn = 'resources/images/%s.bmp' % n
-            img_num = Image.open(fn)
-            img_num = img_num.resize((img_num.size[0], int(img_num.size[1] / 2)), Image.NEAREST)
-            img_buf.paste(img_num, (start_pos[0] + offs, start_pos[1]))
-            offs += im_width
-        if use_hrs_mins_separator:
-            divider = Image.open('resources/images/clock-middle.bmp')
-            img_buf.paste(divider, (int(self.CANVAS_WIDTH / 2) - 10, start_pos[1] + 10))
+    def draw_clock(self, buf, formatted_time, use_hrs_mins_separator):
+        x = 0
+        y = 0
+        draw = ImageDraw.Draw(buf)
+        back = Image.open('./resources/images/back.bmp')
+        buf.paste(back, (x,y))
+        text_height = 90
+        y = self.draw_text(x+10,y,formatted_time,text_height,draw,255)
+        # start_pos = (0, 0)
+        # im_width = 100
+        # offs = 0
+        # for n in formatted_time:
+        #     if n == " ":
+        #         n = "_SPACE"
+        #     fn = 'resources/images/%s.bmp' % n
+        #     img_num = Image.open(fn)
+        #     img_num = img_num.resize((img_num.size[0], int(img_num.size[1] / 2)), Image.NEAREST)
+        #     img_buf.paste(img_num, (start_pos[0] + offs, start_pos[1]))
+        #     offs += im_width
+        # if use_hrs_mins_separator:
+        #     divider = Image.open('resources/images/clock-middle.bmp')
+        #     img_buf.paste(divider, (int(self.CANVAS_WIDTH / 2) - 10, start_pos[1] + 10))
 
 
     def draw_text_aqi(self, x, y, text, text_size, draw, font_color=255):
