@@ -241,7 +241,15 @@ class EPaper(object):
                 self.display_buffer(white_frame, red_frame, '')
 
     def display_main_screen(self, dt, force = False):
-        time_format = "%H%M"
+        if self.TWENTY_FOUR_HOUR_TIME:
+            hours_format = '%H'
+        else:
+            hours_format = '%I'
+        if self.CLOCK_HOURS_MINS_SEPARATOR:
+            time_format = hours_format+':'+"%M"
+        else:
+            time_format = hours_format+"%M"
+
         formatted = dt.strftime(time_format)
 
         # set blank minutes if time's hour is within dead ranges
