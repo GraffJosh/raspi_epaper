@@ -57,9 +57,15 @@ def main():
     global details_to_display
     # time.sleep(30)
     epaper = EPaper(debug_mode=DEBUG_MODE)
-    import socket
+    import urllib.request
     first = True
-    while socket.gethostbyname(socket.gethostname()) == "127.0.0.1":
+    connected = False
+    while connected == False:
+        try:
+            urllib.request.urlopen('http://google.com') #Python 3.x
+            break
+        except:
+            connected = False
         if first:
             first = False
             shutdown_hook()
