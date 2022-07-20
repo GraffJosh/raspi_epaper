@@ -136,17 +136,18 @@ class Drawing(object):
 
     def draw_next_events(self, buf, next_events):
         start_pos = (0, 0)
-    
+        x = 0
+        y = 0
         draw = ImageDraw.Draw(buf)
         back = Image.open('./resources/images/back.bmp')
-        buf.paste(back, start_pos)
+        buf.paste(back, (x,y))
         text_height = 20
         for event in next_events:
             time_until = datetime.datetime.now() - event.start_time 
             print(time_until.seconds//60)
             text = event.title + ' in ' + str(time_until.seconds//60)
-            self.draw_text(start_pos[0]+10,start_pos[1],text,text_height,draw,255)
-            start_pos[1] = start_pos[1] + text_height + 5
+            self.draw_text(x+10,y,text,text_height,draw,255)
+            y = y + text_height + 5
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
         start_pos = (0, 0)
