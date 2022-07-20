@@ -1,6 +1,4 @@
-from providers.acquire import Acquire
 from collections import namedtuple
-import logging
 import time
 import gc
 
@@ -79,7 +77,7 @@ def _resolve_duration(start, end):
 caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','duration'])
 
 
-class MicroCaltrain(Acquire):
+class MicroCaltrain:
 
     def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=0) -> None:
         self.start = start
@@ -139,45 +137,17 @@ class MicroCaltrain(Acquire):
                     break
 
         return trips_list
-    def acquire(self):
-        logging.info("Getting Caltrain: {} from the internet...".format(self.start))
-
-        try:
-            # r = requests.get(
-            #     "https://maps.googleapis.com/maps/api/distancematrix/json?units={}&departure_time=now&origins={},{}&destinations={},{}&mode={}&transit_mode={}&transit_routing_preference={}&key={}".format(
-            #         self.units,
-            #         self.home_lat,
-            #         self.home_lon,
-            #         self.dest_lat,
-            #         self.dest_lon,
-            #         self.mode,
-            #         self.mode_pref,
-            #         self.route_pref,
-            #         self.key
-            #     ),
-            # )
-            if self.start.lower() == 'sf':
-                direction = 0
-            else:
-                direction = 1
-            after = time.localtime(time.mktime(get_pdt()) + self.walking_time*60)
-            next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
-            
-            return caltrain_tuple(
-                departure_time=next_trips[0][0],
-                arrival_time=next_trips[0][1],
-                duration=next_trips[0][2],
-                )
-            return r.status_code, r.text
-        except Exception as e:
-            logging.exception(e)
-
-        return (None, None)
 
     def get(self):
-        caltrain_data= self.load()
-        print(caltrain_data)
-        if caltrain_data is None:
-            return (0,0,0)
+        if self.start.lower() == 'sf':
+            direction = 0
         else:
-            return caltrain_data
+            direction = 1
+        after = time.localtime(time.mktime(get_pdt()) + self.walking_time*60)
+        next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
+        
+        return caltrain_tuple(
+            departure_time=next_trips[0][0],
+            arrival_time=next_trips[0][1],
+            duration=next_trips[0][2],
+            )
