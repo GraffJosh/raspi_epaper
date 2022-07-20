@@ -38,13 +38,14 @@ class CalendarEvents(Acquire):
             for event in cal_data['events']:
                 start_time = parser.parse(event['start_time'])-timedelta(hours=7)
                 start_time = start_time.replace(tzinfo=None)
+                time_until = (datetime.today() - start_time)
                 allday = event['is_allday']
                 print("start time",start_time)
                 print("today: ",datetime.today())
+                print("difference: ",time_until)
                 if not allday:
-                    seconds_until = (datetime.today() - start_time)
-                    print("time until ",event['title'],": ",seconds_until.seconds//60)
-                    if (seconds_until.seconds // 60) < self.timeframe:
+                    print("time until ",event['title'],": ",(time_until.seconds // 60))
+                    if (time_until.seconds // 60) < self.timeframe:
                         next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                 else:
                     next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
