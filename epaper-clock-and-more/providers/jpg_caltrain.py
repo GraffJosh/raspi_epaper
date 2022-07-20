@@ -80,7 +80,7 @@ caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','durati
 
 
 class MicroCaltrain:
-    DEFAULT = caltrain_tuple(departure_time=time.localtime(time.mktime(get_pdt()),arrival_time=time.localtime(time.mktime(get_pdt()),duration=0)
+    DEFAULT = caltrain_tuple(departure_time=time.localtime(time.mktime(get_pdt())),arrival_time=time.localtime(time.mktime(get_pdt())),duration=0)
     def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=0) -> None:
         self.start = start
         self.end = end
