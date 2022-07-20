@@ -74,7 +74,7 @@ def main():
         time.sleep(1)
     
     atexit.register(shutdown_hook)
-    signal.signal(signal.SIGTERM, signal_hook)
+    # signal.signal(signal.SIGTERM, signal_hook)
 
     buttons = None
     if not DEBUG_MODE and (os.environ.get("EPAPER_BUTTONS_ENABLED", "true") == "true"):
@@ -163,7 +163,7 @@ def refresh_main_screen(epaper, force = False):
 def signal_hook(*args):
     if shutdown_hook():
         logging.info("calling exit 0")
-        sys.exit(0) 
+        sys.exit(1) 
 
 
 def shutdown_hook():
