@@ -11,9 +11,9 @@ CalEventTuple = namedtuple('calEvent', ['title','start_time','is_allday'])
 
 class CalendarEvents(Acquire):
     DEFAULT=None #CalEventTuple(title='',start_time=None,is_allday=False)
-    def __init__(self,cal_url:str,timeframe:int) -> None:
+    def __init__(self,cal_url:str,timeframe) -> None:
         self.cal_url =cal_url
-        self.timeframe = timeframe
+        self.timeframe = int(timeframe)
         pass
 
     def cache_name(self):
