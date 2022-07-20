@@ -144,11 +144,14 @@ class Drawing(object):
         text_height = 40
         max_events = 2
         for event_num in range(min(len(next_events),max_events)):
+            flavor_text_len = 9
+            title = next_events[event_num].title
             time_until = next_events[event_num].start_time - datetime.datetime.now() 
             print(time_until.total_seconds() // 60)
-            text = next_events[event_num].title + ' in ' + (str(int(time_until.total_seconds() // 60))) + ' min.'
-            self.draw_text(x+10,y,text,text_height,draw,255)
-            y = y + text_height + 5
+            min_until = (str(int(time_until.total_seconds() // 60)))
+            title[:(25-len(min_until)-flavor_text_len)]
+            text = title + ' in ' + min_until + ' min.'
+            y = self.draw_text(x+10,y,text,text_height,draw,255)
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
         start_pos = (0, 0)
