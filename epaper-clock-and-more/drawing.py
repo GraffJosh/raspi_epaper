@@ -39,8 +39,9 @@ class Drawing(object):
 
     def draw_text(self, x, y, text, font_size, draw, color=0):
         font = self.load_font(font_size)
+        text_dims = font.getsize(str(text))
         draw.text((x, y), str(text), font=font, fill=color)
-        return y + font_size * 1.2  # +20%
+        return (text_dims[0],y + font_size * 1.2)  # +20%
 
 
     def draw_multiline_text(self, x, y, text, font_size, draw, color=0):
@@ -152,7 +153,7 @@ class Drawing(object):
             min_until = (str(int(time_until.total_seconds() // 60)))
             title=title[:(max_text_len-len(min_until)-flavor_text_len)]
             text = title + ' in ' + min_until + ' min.'
-            y = self.draw_text(x+10,y,text,text_height,draw,255)
+            y = self.draw_text(x+10,y,text,text_height,draw,255)[1]
 
     def draw_clock(self, buf, formatted_time, use_hrs_mins_separator):
         x = 0
@@ -161,7 +162,7 @@ class Drawing(object):
         back = Image.open('./resources/images/back.bmp')
         buf.paste(back, (x,y))
         text_height = 90
-        y = self.draw_text(x+10,y,formatted_time,text_height,draw,255)
+        y = self.draw_text(x+10,y,formatted_time,text_height,draw,255)[1]
         # start_pos = (0, 0)
         # im_width = 100
         # offs = 0
@@ -286,16 +287,16 @@ class Drawing(object):
         provider = aqi.provider
         self.draw_text(10, 10, "Air Quality Index by {}".format(provider), 35, draw)
 
-        y = self.draw_text(10, 60, "PM2.5: {:0.0f}, PM10: {:0.0f} ({})".format(aqi.pm25, aqi.pm10, self.PM_SYMBOL.encode('utf-8')), 30, draw)
-        y = self.draw_text(10, y, "AQI: {:0.0f}, level: {}".format(aqi.aqi, aqi.level.replace('_', ' ').encode('utf-8') if aqi.level else 'N/A'), 30, draw)
+        y = self.draw_text(10, 60, "PM2.5: {:0.0f}, PM10: {:0.0f} ({})".format(aqi.pm25, aqi.pm10, self.PM_SYMBOL.encode('utf-8')), 30, draw)[1]
+        y = self.draw_text(10, y, "AQI: {:0.0f}, level: {}".format(aqi.aqi, aqi.level.replace('_', ' ').encode('utf-8') if aqi.level else 'N/A'), 30, draw)[1]
         if aqi.advice:
             y = self.draw_multiline_text(10, y, "Advice: {}".format(aqi.advice.encode('utf-8')) if aqi.advice else 'N/A', 25, draw)
         if aqi.humidity != -1:
-            y = self.draw_text(10, y, "Humidity: {} %".format(aqi.humidity), 30, draw)
+            y = self.draw_text(10, y, "Humidity: {} %".format(aqi.humidity), 30, draw)[1]
         if aqi.pressure != -1:
-            y = self.draw_text(10, y, "Pressure:  {} hPa".format(aqi.pressure), 30, draw)
+            y = self.draw_text(10, y, "Pressure:  {} hPa".format(aqi.pressure), 30, draw)[1]
         if aqi.temperature:
-            y = self.draw_text(10, y, "Temperature: {} {}C".format(aqi.temperature, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
+            y = self.draw_text(10, y, "Temperature: {} {}C".format(aqi.temperature, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)[1]
 
         return black_buf, red_buf
 
@@ -309,7 +310,7 @@ class Drawing(object):
         y = self.draw_multiline_text(10, 50, "From: {}".format(self.trim_address(gmaps1.origin_address).encode('utf-8')), 25, draw)
         y += 5
         y = self.draw_multiline_text(10, y, "To #1: {}".format(self.trim_address(gmaps1.destination_address).encode('utf-8')), 25, draw)
-        y = self.draw_text(10, y, "{}, avg: {}m, now: {}m".format(gmaps1.distance, gmaps1.time_to_dest / 60, gmaps1.time_to_dest_in_traffic / 60), 30, draw)
+        y = self.draw_text(10, y, "{}, avg: {}m, now: {}m".format(gmaps1.distance, gmaps1.time_to_dest / 60, gmaps1.time_to_dest_in_traffic / 60), 30, draw)[1]
 
         y += 5
         y = self.draw_multiline_text(10, y, "To #2: {}".format(self.trim_address(gmaps2.destination_address).encode('utf-8')), 25, draw)
