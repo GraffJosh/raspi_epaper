@@ -267,7 +267,7 @@ class EPaper(object):
             logging.info("--- caltrain: " + time.asctime(caltrain_data.departure_time))
 
             next_events = self.cal.get()
-            logging.info("--- events: " + next_events[0])
+            logging.info("--- events: " + next_events[0].title)
 
             black_frame, red_frame = self.drawing.draw_frame(
                 self.MONO_DISPLAY,
