@@ -160,8 +160,8 @@ class MicroCaltrain(Acquire):
         if train_data:
             print(train_data)
             return caltrain_tuple(
-                departure_time=parser.parse(train_data[0][0]),
-                arrival_time=parser.parse(train_data[0][1]),
+                departure_time=time.localtime(time.mktime(tuple(train_data[0][0]))),
+                arrival_time=time.localtime(time.mktime(tuple(train_data[0][1]))),
                 duration=int(train_data[0][2]),
                 )
         else:
