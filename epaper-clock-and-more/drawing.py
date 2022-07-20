@@ -152,7 +152,10 @@ class Drawing(object):
             # print(time_until.total_seconds() // 60)
             min_until = (str(int(time_until.total_seconds() // 60)))
             title=title[:(max_text_len-len(min_until)-flavor_text_len)]
-            text = title + ' in ' + min_until + ' min.'
+            if min_until > 60:
+                text = title + ' in ' + min_until/60 + ' hours.'
+            else:
+                text = title + ' in ' + min_until + ' min.'
             y = self.draw_text(x+10,y,text,text_height,draw,255)[1]
 
     def draw_clock(self, buf, formatted_time, use_hrs_mins_separator):
