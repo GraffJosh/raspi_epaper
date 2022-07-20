@@ -16,7 +16,10 @@ class Acquire(object):
 
 
     def cache_path(self):
-        pth_cache = os.path.expanduser("~/.epaper-display/cache/")
+        if os.name == 'nt':
+            pth_cache = "G:\Onedrive\Projects\epaper_6\epaper-clock-and-more\providers\cache"
+        else:
+            pth_cache = os.path.expanduser("~/.epaper-display/cache/")
         if not os.path.exists(pth_cache):
             os.makedirs(pth_cache)
         return os.path.join(pth_cache, self.cache_name())

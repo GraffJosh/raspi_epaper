@@ -1,6 +1,8 @@
 from collections import namedtuple
+from datetime import datetime
 import time
 import gc
+from unittest.mock import DEFAULT
 
 def time_from_str(time_str):
     time = time_str.split(':')
@@ -78,7 +80,7 @@ caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','durati
 
 
 class MicroCaltrain:
-
+    DEFAULT = caltrain_tuple(departure_time=datetime.now(),arrival_time=datetime.now,duration=0)
     def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=0) -> None:
         self.start = start
         self.end = end
@@ -145,9 +147,11 @@ class MicroCaltrain:
             direction = 1
         after = time.localtime(time.mktime(get_pdt()) + self.walking_time*60)
         next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
-        
-        return caltrain_tuple(
-            departure_time=next_trips[0][0],
-            arrival_time=next_trips[0][1],
-            duration=next_trips[0][2],
-            )
+        if next_trips:
+            return caltrain_tuple(
+                departure_time=next_trips[0][0],
+                arrival_time=next_trips[0][1],
+                duration=next_trips[0][2],
+                )
+        else:
+            return self.DEFAULT
