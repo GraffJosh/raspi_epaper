@@ -3,6 +3,7 @@
 # Original code: https://github.com/prehensile/waveshare-clock
 # Modifications: https://github.com/pskowronek/epaper-clock-and-more, Apache 2 license
 
+import datetime
 import os
 import time
 from PIL import Image, ImageDraw, ImageFont
@@ -140,7 +141,10 @@ class Drawing(object):
         back = Image.open('./resources/images/back.bmp')
         buf.paste(back, start_pos)
 
-        self.draw_text(start_pos[0],start_pos[1],next_events[0].title,20,draw,255)
+        for event in next_events:
+            time_until = datetime.now() - event.start_time 
+            text = event.title + ' in ' + time_until
+            self.draw_text(start_pos[0]+10,start_pos[1],text,20,draw,255)
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
         start_pos = (0, 0)
