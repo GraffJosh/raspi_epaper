@@ -38,7 +38,7 @@ class CalendarEvents(Acquire):
             for event in cal_data['events']:
                 start_time = parser.parse(event['start_time'])-timedelta(hours=7)
                 start_time = start_time.replace(tzinfo=None)
-                time_until = (datetime.today() - start_time)
+                time_until = (start_time-datetime.today())
                 allday = event['is_allday']
                 print("start time",start_time)
                 print("today: ",datetime.today())
