@@ -23,21 +23,22 @@ class CalendarEvents(Acquire):
         r = requests.get(
             self.cal_url
             )
-        print(r.text)
-        print("events[0]",r.json()['events'][0])
+        # print(r.text)
+        # print("events[0]",r.json()['events'][0])
         return r.status_code,r.text
 
     def get(self):
         try:
             cal_data = self.load()
-            print("cal_data: ",cal_data)
+            # print("cal_data: ",cal_data)
             if cal_data is None or cal_data['events'][0] is None:
                 return self.DEFAULT
             next_events= []
             for event in cal_data['events']:
                 start_time = parser.parse(event['start_time'])-timedelta(hours=7)
+                start_time = start_time.replace(tzinfo=None)
                 allday = event['is_allday']
-                print("start time",start_time)
+                # print("start time",start_time)
                 next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                 
             return next_events
