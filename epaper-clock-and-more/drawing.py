@@ -143,13 +143,14 @@ class Drawing(object):
         buf.paste(back, (x,y))
         text_height = 40
         max_events = 2
+        max_text_len = 20
+        flavor_text_len = 9
         for event_num in range(min(len(next_events),max_events)):
-            flavor_text_len = 9
             title = next_events[event_num].title
             time_until = next_events[event_num].start_time - datetime.datetime.now() 
             print(time_until.total_seconds() // 60)
             min_until = (str(int(time_until.total_seconds() // 60)))
-            title[:(25-len(min_until)-flavor_text_len)]
+            title=title[:(max_text_len-len(min_until)-flavor_text_len)]
             text = title + ' in ' + min_until + ' min.'
             y = self.draw_text(x+10,y,text,text_height,draw,255)
 
