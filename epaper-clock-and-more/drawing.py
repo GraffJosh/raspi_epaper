@@ -143,7 +143,8 @@ class Drawing(object):
 
         for event in next_events:
             time_until = datetime.datetime.now() - event.start_time 
-            text = event.title + ' in ' + str(time_until//60)
+            print(time_until.seconds//60)
+            text = event.title + ' in ' + str(time_until.seconds//60)
             self.draw_text(start_pos[0]+10,start_pos[1],text,20,draw,255)
 
     def draw_clock(self, img_buf, formatted_time, use_hrs_mins_separator):
