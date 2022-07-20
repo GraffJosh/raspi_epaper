@@ -60,11 +60,13 @@ def main():
     import urllib.request
     first = True
     connected = False
+    print("startup!")
     while connected == False:
         try:
             urllib.request.urlopen('http://google.com') #Python 3.x
             break
         except:
+            print("no wifi?")
             connected = False
         if first:
             first = False
