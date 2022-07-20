@@ -1,7 +1,10 @@
 from collections import namedtuple
 from datetime import datetime
+import json
+import os
 import time
 import gc
+from providers.acquire import Acquire
 from unittest.mock import DEFAULT
 
 def time_from_str(time_str):
@@ -79,7 +82,7 @@ def _resolve_duration(start, end):
 caltrain_tuple = namedtuple('caltrain', ['departure_time','arrival_time','duration'])
 
 
-class MicroCaltrain:
+class MicroCaltrain(Acquire):
     DEFAULT = caltrain_tuple(departure_time=time.localtime(time.mktime(get_pdt())),arrival_time=time.localtime(time.mktime(get_pdt())),duration=0)
     def __init__(self,filename="main/app/caltrain_data.csv",start='sf',end='law',walking_time=0) -> None:
         self.start = start
@@ -87,6 +90,8 @@ class MicroCaltrain:
         self.walking_time=walking_time
         self.filename=filename
 
+    def cache_name(self):
+        return "caltrain"
     #a=start (sf,sv,law)
     #b=end (sf, sv, law)
     #direction=0/South 1/North
@@ -140,18 +145,43 @@ class MicroCaltrain:
 
         return trips_list
 
-    def get(self):
+    def acquire(self):
         if self.start.lower() == 'sf':
             direction = 0
         else:
             direction = 1
-        after = time.localtime(time.mktime(get_pdt()) + self.walking_time*60)
+        after = time.localtime(time.mktime(get_pdt()) + self.walking_time*60)     
         next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
-        if next_trips:
+        return 200,json.dumps(next_trips)
+
+    def get(self):
+        train_data = self.load()
+        if train_data:
             return caltrain_tuple(
-                departure_time=next_trips[0][0],
-                arrival_time=next_trips[0][1],
-                duration=next_trips[0][2],
+                departure_time=train_data[0][0],
+                arrival_time=train_data[0][1],
+                duration=train_data[0][2],
                 )
         else:
             return self.DEFAULT
+    # def get(self):
+    #     if self.start.lower() == 'sf':
+    #         direction = 0
+    #     else:
+    #         direction = 1
+    #     after = time.localtime(time.mktime(get_pdt()) + self.walking_time*60)
+    #     next_trips = self.next_trips(a=self.start,b=self.end,direction=direction,after=after)
+    #     if next_trips:
+    #         return caltrain_tuple(
+    #             departure_time=next_trips[0][0],
+    #             arrival_time=next_trips[0][1],
+    #             duration=next_trips[0][2],
+    #             )
+    #     else:
+    #         return self.DEFAULT
+# caltrain = MicroCaltrain(
+#         filename='providers/caltrain_data.csv',
+#         start='law',
+#         end='sf',
+#         walking_time = 20)
+# print(caltrain.get())
