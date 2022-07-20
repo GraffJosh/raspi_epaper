@@ -142,7 +142,7 @@ class Drawing(object):
         buf.paste(back, start_pos)
 
         for event in next_events:
-            time_until = datetime.now() - event.start_time 
+            time_until = datetime.datetime.now() - event.start_time 
             text = event.title + ' in ' + time_until
             self.draw_text(start_pos[0]+10,start_pos[1],text,20,draw,255)
 
