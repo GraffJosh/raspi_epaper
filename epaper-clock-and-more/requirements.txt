@@ -35,3 +35,5 @@ uptime == 3.0.1
 
 # providers/meteoalarm.py: 6
 meteoalertapi == 0.2.0 
+
+python-dateutil == 2.8.2
