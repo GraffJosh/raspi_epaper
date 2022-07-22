@@ -118,6 +118,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
+    #common
     lut_vcom0_quick =   bytearray(b'\x00\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -126,6 +127,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    #WW -> --
     lut_ww_quick =      bytearray(b'\xA0\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -134,6 +136,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
+    #BW R
     lut_bw_quick =      bytearray(b'\xA0\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -142,6 +145,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
+    #WB W
     lut_bb_quick =      bytearray(b'\x50\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -150,6 +154,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
+    #BB b
     lut_wb_quick =      bytearray(b'\x50\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -237,6 +242,7 @@ class EPD:
         return buf
 
     def set_lut(self, quick=False):
+        print(self.lut_vcom0)
         if quick:
             self.fast_count = self.fast_count+1
             
