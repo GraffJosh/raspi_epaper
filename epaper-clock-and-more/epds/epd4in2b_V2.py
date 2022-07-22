@@ -118,51 +118,60 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
-    #common
-    lut_vcom0_quick =   bytearray(b'\x00\x0E\x00\x00\x00\
-                                    x01\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\x00\x00\x00\x00')
-    #WW -> --
-    lut_ww_quick =      bytearray(b'\xA0\x0E\x00\x00\x00\
-                                    x01\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\x00\x00')
-    #BW R
-    lut_bw_quick =      bytearray(b'\xA0\x0E\x00\x00\x00\
-                                    x01\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\x00\x00')
-    #WB W
-    lut_bb_quick =      bytearray(b'\x50\x0E\x00\x00\x00\
-                                    x01\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\x00\x00')
-    #BB b
-    lut_wb_quick =      bytearray(b'\x50\x0E\x00\x00\x00\
-                                    x01\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\
-                                    x00\x00\x00\x00\x00\x00\x00')
+    lut_vcom_dc = [
+        0x00    ,0x00,
+        0x00    ,0x1A    ,0x1A    ,0x00    ,0x00    ,0x01,        
+        0x00    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,        
+        0x00    ,0x0E    ,0x01    ,0x0E    ,0x01    ,0x01,        
+        0x00    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,        
+        0x00    ,0x04    ,0x10    ,0x00    ,0x00    ,0x01,        
+        0x00    ,0x03    ,0x0E    ,0x00    ,0x00    ,0x09,        
+        0x00    ,0x23    ,0x00    ,0x00    ,0x00    ,0x01    
+    ]
+
+    # R21H
+    lut_ww = [
+        0x90    ,0x1A    ,0x1A    ,0x00    ,0x00    ,0x01,
+        0x40    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x84    ,0x0E    ,0x01    ,0x0E    ,0x01    ,0x01,
+        0x80    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x04    ,0x10    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x03    ,0x0E    ,0x00    ,0x00    ,0x09,
+        0x00    ,0x23    ,0x00    ,0x00    ,0x00    ,0x01
+    ]
+
+    # R22H    r
+    lut_bw = [
+        0xA0    ,0x1A    ,0x1A    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x84    ,0x0E    ,0x01    ,0x0E    ,0x01    ,0x01,
+        0x90    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0xB0    ,0x04    ,0x10    ,0x00    ,0x00    ,0x01,
+        0xB0    ,0x03    ,0x0E    ,0x00    ,0x00    ,0x09,
+        0xC0    ,0x23    ,0x00    ,0x00    ,0x00    ,0x01
+    ]
+
+    # R23H    w
+    lut_bb = [
+        0x90    ,0x1A    ,0x1A    ,0x00    ,0x00    ,0x01,
+        0x40    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x84    ,0x0E    ,0x01    ,0x0E    ,0x01    ,0x01,
+        0x80    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x04    ,0x10    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x03    ,0x0E    ,0x00    ,0x00    ,0x09,
+        0x00    ,0x23    ,0x00    ,0x00    ,0x00    ,0x01
+    ]
+
+    # R24H    b
+    lut_wb = [
+        0x90    ,0x1A    ,0x1A    ,0x00    ,0x00    ,0x01,
+        0x20    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x84    ,0x0E    ,0x01    ,0x0E    ,0x01    ,0x01,
+        0x10    ,0x0A    ,0x0A    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x04    ,0x10    ,0x00    ,0x00    ,0x01,
+        0x00    ,0x03    ,0x0E    ,0x00    ,0x00    ,0x09,
+        0x00    ,0x23    ,0x00    ,0x00    ,0x00    ,0x01
+    ]
 
     def __init__(self):
         self.reset_pin = epdconfig.RST_PIN
@@ -292,7 +301,7 @@ class EPD:
         for i in range(0, int(self.width * self.height / 8)):
             self.send_data(imagered[i])
         
-        # self.set_lut(quick=(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
+        self.set_lut(quick=True)#(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
 
         self.send_command(DISPLAY_REFRESH) 
         epdconfig.delay_ms(20)
