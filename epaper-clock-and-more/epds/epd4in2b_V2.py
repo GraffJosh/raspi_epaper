@@ -78,7 +78,7 @@ logger = logging.getLogger(__name__)
 
 class EPD:
 
-    lut_vcom0 =         bytearray(b'\x40\x17\x00\x00\x00\
+    lut_vcom0 =         bytearray('\x40\x17\x00\x00\x00\
                                     x02\x00\x17\x17\x00\
                                     x00\x02\x00\x0A\x01\
                                     x00\x00\x01\x00\x0E\
@@ -86,7 +86,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00\x00\x00')
-    lut_ww =            bytearray(b'\x40\x17\x00\x00\x00\
+    lut_ww =            bytearray('\x40\x17\x00\x00\x00\
                                     x02\x90\x17\x17\x00\
                                     x00\x02\x40\x0A\x01\
                                     x00\x00\x01\xA0\x0E\
@@ -94,7 +94,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
-    lut_bw =            bytearray(b'\x40\x17\x00\x00\x00\
+    lut_bw =            bytearray('\x40\x17\x00\x00\x00\
                                     x02\x90\x17\x17\x00\
                                     x00\x02\x40\x0A\x01\
                                     x00\x00\x01\xA0\x0E\
@@ -102,7 +102,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
-    lut_bb =            bytearray(b'\x80\x17\x00\x00\x00\
+    lut_bb =            bytearray('\x80\x17\x00\x00\x00\
                                     x02\x90\x17\x17\x00\
                                     x00\x02\x80\x0A\x01\
                                     x00\x00\x01\x50\x0E\
@@ -110,7 +110,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
-    lut_wb =            bytearray(b'\x80\x17\x00\x00\x00\
+    lut_wb =            bytearray('\x80\x17\x00\x00\x00\
                                     x02\x90\x17\x17\x00\
                                     x00\x02\x80\x0A\x01\
                                     x00\x00\x01\x50\x0E\
@@ -119,7 +119,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
     #common
-    lut_vcom0_quick =   bytearray(b'\x00\x0E\x00\x00\x00\
+    lut_vcom0_quick =   bytearray('\x00\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -128,7 +128,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00\x00\x00')
     #WW -> --
-    lut_ww_quick =      bytearray(b'\xA0\x0E\x00\x00\x00\
+    lut_ww_quick =      bytearray('\xA0\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -137,7 +137,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
     #BW R
-    lut_bw_quick =      bytearray(b'\xA0\x0E\x00\x00\x00\
+    lut_bw_quick =      bytearray('\xA0\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -146,7 +146,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
     #WB W
-    lut_bb_quick =      bytearray(b'\x50\x0E\x00\x00\x00\
+    lut_bb_quick =      bytearray('\x50\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -155,7 +155,7 @@ class EPD:
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\x00\x00')
     #BB b
-    lut_wb_quick =      bytearray(b'\x50\x0E\x00\x00\x00\
+    lut_wb_quick =      bytearray('\x50\x0E\x00\x00\x00\
                                     x01\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
                                     x00\x00\x00\x00\x00\
@@ -192,7 +192,7 @@ class EPD:
     def send_data(self, data):
         epdconfig.digital_write(self.dc_pin, 1)
         epdconfig.digital_write(self.cs_pin, 0)
-        epdconfig.spi_writebyte(bytearray[data])
+        epdconfig.spi_writebyte([data])
         epdconfig.digital_write(self.cs_pin, 1)
         
     def ReadBusy(self):
