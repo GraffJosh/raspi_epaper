@@ -77,11 +77,25 @@ POWER_SAVING                                = 0xE3
 logger = logging.getLogger(__name__)
 
 class EPD:
+
+    lut_vcom0 = bytearray(b'\x40\x17\x00\x00\x00\x02\x00\x17\x17\x00\x00\x02\x00\x0A\x01\x00\x00\x01\x00\x0E\x0E\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_ww = bytearray(b'\x40\x17\x00\x00\x00\x02\x90\x17\x17\x00\x00\x02\x40\x0A\x01\x00\x00\x01\xA0\x0E\x0E\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_bw = bytearray(b'\x40\x17\x00\x00\x00\x02\x90\x17\x17\x00\x00\x02\x40\x0A\x01\x00\x00\x01\xA0\x0E\x0E\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_bb = bytearray(b'\x80\x17\x00\x00\x00\x02\x90\x17\x17\x00\x00\x02\x80\x0A\x01\x00\x00\x01\x50\x0E\x0E\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_wb = bytearray(b'\x80\x17\x00\x00\x00\x02\x90\x17\x17\x00\x00\x02\x80\x0A\x01\x00\x00\x01\x50\x0E\x0E\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_vcom0_quick = bytearray(b'\x00\x0E\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_ww_quick = bytearray(b'\xA0\x0E\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_bw_quick = bytearray(b'\xA0\x0E\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_bb_quick = bytearray(b'\x50\x0E\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+    lut_wb_quick = bytearray(b'\x50\x0E\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+
     def __init__(self):
         self.reset_pin = epdconfig.RST_PIN
         self.dc_pin = epdconfig.DC_PIN
         self.busy_pin = epdconfig.BUSY_PIN
         self.cs_pin = epdconfig.CS_PIN
+        self.fast_count = 0
+        self.max_fast_refresh = 10
         self.width = EPD_WIDTH
         self.height = EPD_HEIGHT
 
@@ -152,6 +166,42 @@ class EPD:
                         buf[int((newx + newy*self.width) / 8)] &= ~(0x80 >> (y % 8))
         return buf
 
+    def set_lut(self, quick=False):
+        if quick:
+            self.fast_count = self.fast_count+1
+            
+            self.send_command(LUT_FOR_VCOM)
+            self.send_data(self.lut_vcom0_quick)    # vcom
+
+            self.send_command(LUT_WHITE_TO_WHITE)
+            self.send_data(self.lut_ww_quick) # ww --
+
+            self.send_command(LUT_BLACK_TO_WHITE)
+            self.send_data(self.lut_bw_quick) # bw r
+
+            self.send_command(LUT_WHITE_TO_BLACK)
+            self.send_data(self.lut_wb_quick) # wb w
+
+            self.send_command(LUT_BLACK_TO_BLACK)
+            self.send_data(self.lut_bb_quick) # bb b         
+        else:
+            self.fast_count = 1
+            self.send_command(LUT_FOR_VCOM)
+            self.send_data(self.lut_vcom0)    # vcom
+
+            self.send_command(LUT_WHITE_TO_WHITE)
+            self.send_data(self.lut_ww) # ww --
+
+            self.send_command(LUT_BLACK_TO_WHITE)
+            self.send_data(self.lut_bw) # bw r
+
+            self.send_command(LUT_WHITE_TO_BLACK)
+            self.send_data(self.lut_wb) # wb w
+
+            self.send_command(LUT_BLACK_TO_BLACK)
+            self.send_data(self.lut_bb) # bb b
+
+
     def display_frame(self, imageblack, imagered):
         self.send_command(0x10)
         for i in range(0, int(self.width * self.height / 8)):
@@ -161,7 +211,9 @@ class EPD:
         for i in range(0, int(self.width * self.height / 8)):
             self.send_data(imagered[i])
         
-        self.send_command(0x12) 
+        self.set_lut(quick=(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
+
+        self.send_command(DISPLAY_REFRESH) 
         epdconfig.delay_ms(20)
         self.ReadBusy()
 
