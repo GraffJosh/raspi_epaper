@@ -292,7 +292,7 @@ class EPD:
         for i in range(0, int(self.width * self.height / 8)):
             self.send_data(imagered[i])
         
-        self.set_lut(quick=(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
+        # self.set_lut(quick=(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
 
         self.send_command(DISPLAY_REFRESH) 
         epdconfig.delay_ms(20)
