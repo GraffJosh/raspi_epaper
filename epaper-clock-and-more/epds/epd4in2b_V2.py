@@ -247,7 +247,7 @@ class EPD:
         return buf
 
     def set_lut(self, quick=False):
-        print(self.lut_vcom0)
+        # print(self.lut_vcom0)
         if quick:
             self.fast_count = self.fast_count+1
             
