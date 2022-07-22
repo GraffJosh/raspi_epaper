@@ -192,7 +192,7 @@ class EPD:
     def send_data(self, data):
         epdconfig.digital_write(self.dc_pin, 1)
         epdconfig.digital_write(self.cs_pin, 0)
-        epdconfig.spi_writebyte([data])
+        epdconfig.spi_writebyte(bytearray[data])
         epdconfig.digital_write(self.cs_pin, 1)
         
     def ReadBusy(self):
