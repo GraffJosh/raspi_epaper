@@ -259,23 +259,6 @@ class EPD:
         # print(self.lut_vcom0)
         if quick:
             self.fast_count = self.fast_count+1
-            
-            self.send_command(LUT_FOR_VCOM)
-            self._send_data(self.lut_vcom0_quick)    # vcom
-
-            self.send_command(LUT_WHITE_TO_WHITE)
-            self._send_data(self.lut_ww_quick) # ww --
-
-            self.send_command(LUT_BLACK_TO_WHITE)
-            self._send_data(self.lut_bw_quick) # bw r
-
-            self.send_command(LUT_WHITE_TO_BLACK)
-            self._send_data(self.lut_wb_quick) # wb w
-
-            self.send_command(LUT_BLACK_TO_BLACK)
-            self._send_data(self.lut_bb_quick) # bb b         
-        else:
-            self.fast_count = 1
             self.send_command(LUT_FOR_VCOM)
             self._send_data(self.lut_vcom0)    # vcom
 
@@ -290,6 +273,9 @@ class EPD:
 
             self.send_command(LUT_BLACK_TO_BLACK)
             self._send_data(self.lut_bb) # bb b
+        else:
+            self.fast_count = 1
+            
 
 
     def display_frame(self, imageblack, imagered):
@@ -301,7 +287,7 @@ class EPD:
         for i in range(0, int(self.width * self.height / 8)):
             self.send_data(imagered[i])
         
-        self.set_lut(quick=False)#(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
+        self.set_lut(quick=(self.fast_count < self.max_fast_refresh or self.fast_count == 0))
 
         self.send_command(DISPLAY_REFRESH) 
         epdconfig.delay_ms(20)
