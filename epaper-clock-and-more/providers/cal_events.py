@@ -1,6 +1,7 @@
 
 
 from datetime import datetime, timedelta
+from time import time
 from dateutil import parser
 import logging
 from providers.acquire import Acquire
@@ -48,7 +49,8 @@ class CalendarEvents(Acquire):
                     if (time_until) < self.timeframe and time_until > -10:
                         next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                 else:
-                    next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
+                    if time_until < (24*60) and time_until > (-1 * (15*60)):
+                        next_events.append(CalEventTuple(title=event['title'],start_time=start_time,is_allday=allday))
                         
                 
             return next_events
