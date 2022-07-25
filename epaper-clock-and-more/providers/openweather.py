@@ -68,9 +68,9 @@ class OpenWeather(Acquire):
 
             return OpenWeatherTuple(
                 provider='OpenWeather',
-                temp=c['temp'],
-                temp_min=temp_min,
-                temp_max=temp_max,
+                temp=int(c['temp']),
+                temp_min=int(temp_min),
+                temp_max=int(temp_max),
                 icon=c['weather'][0]['icon'] if 'weather' in c else None,
                 summary=c['weather'][0]['main'] if 'weather' in c else None,
                 forecast_summary=d['weather'][0]['description'] if 'weather' in d else None,
