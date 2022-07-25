@@ -146,7 +146,8 @@ class EPaper(object):
         filename=os.path.dirname(os.path.abspath(__file__))+'/providers/caltrain_data.csv',
         start=os.environ.get('CALTRAIN_START'),
         end=os.environ.get('CALTRAIN_END'),
-        walking_time = float(os.environ.get('CALTRAIN_WALKING_TIME')))
+        walking_time = float(os.environ.get('CALTRAIN_WALKING_TIME')),
+        ttl=float(os.environ.get('CALTRAIN_TTL')))
     
     cal = CalendarEvents(cal_url=os.environ.get('CALENDAR_URL'),timeframe=os.environ.get('NEXT_CAL_MINUTES'))
     system_info = SystemInfo()
