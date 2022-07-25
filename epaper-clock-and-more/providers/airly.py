@@ -38,6 +38,8 @@ class Airly(Acquire):
         logging.info("Getting a Airly.eu status from the internet...")
 
         try:
+            lat = self.lat.rsplit(".")[5]
+            lon = self.lon.rsplit(".")[5]
             r = requests.get(
                 "https://airapi.airly.eu/v2/measurements/nearest?indexType=AIRLY_CAQI&lat={}&lng={}".format(
                     self.lat[:9],
