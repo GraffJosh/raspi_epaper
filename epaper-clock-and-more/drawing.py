@@ -133,7 +133,7 @@ class Drawing(object):
             self.draw_text(230, top_y, caption, 60, red_draw, 0)
         else:
             top_y = top_y + 17
-            caption = "{:0.0f}/{:0.0f}".format(int(weather.temp_max), self.TEMPERATURE_SYMBOL, int(weather.temp_min), self.TEMPERATURE_SYMBOL)
+            caption = "{:0.0f}/{:0.0f}".format(int(weather.temp_max), int(weather.temp_min))
             self.draw_text(230, top_y, caption, 60, draw, 255)
 
     def draw_next_events(self, buf, next_events):
