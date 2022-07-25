@@ -124,7 +124,7 @@ class Drawing(object):
             self.draw_multiline_text(230, top_y, caption, 40, red_draw, 255)    # on red canvas
         elif int(weather.temp_max)>80:
             top_y = top_y + 17
-            caption = "{:0.0f}/{:0.0f}".format(weather.temp_max, weather.temp_min)
+            caption = "{:0.0f}/{:0.0f}".format(int(weather.temp_max), int(weather.temp_min))
             if black_on_red:
                 self.draw_text(230, top_y, caption, 60, draw, 0)
             else:
@@ -133,7 +133,7 @@ class Drawing(object):
             self.draw_text(230, top_y, caption, 60, red_draw, 0)
         else:
             top_y = top_y + 17
-            caption = "{:0.0f}/{:0.0f}".format(weather.temp_max, self.TEMPERATURE_SYMBOL, weather.temp_min, self.TEMPERATURE_SYMBOL)
+            caption = "{:0.0f}/{:0.0f}".format(int(weather.temp_max), self.TEMPERATURE_SYMBOL, int(weather.temp_min), self.TEMPERATURE_SYMBOL)
             self.draw_text(230, top_y, caption, 60, draw, 255)
 
     def draw_next_events(self, buf, next_events):
@@ -348,7 +348,7 @@ class Drawing(object):
         self.draw_text(10, 10, provider_text, provider_text_size, draw)
 
         self.draw_text(10, 65, "Temperature: {}{}".format(weather.temp, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
-        self.draw_text(10, 95, "Daily min: {}{}, max: {}{}".format(weather.temp_min, self.TEMPERATURE_SYMBOL.encode('utf-8'), weather.temp_max, self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
+        self.draw_text(10, 95, "Daily min: {}{}, max: {}{}".format(int(weather.temp_min), self.TEMPERATURE_SYMBOL.encode('utf-8'), int(weather.temp_max), self.TEMPERATURE_SYMBOL.encode('utf-8')), 30, draw)
         y = self.draw_multiline_text(10, 145, "Daily summary: {}".format(weather.summary.encode('utf-8')), 25, draw)
     
         caption = None
