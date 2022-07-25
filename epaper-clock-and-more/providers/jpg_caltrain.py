@@ -106,6 +106,7 @@ class MicroCaltrain(Acquire):
     def next_trips(self, a='sf', b='law',direction=0, after=get_pdt(),count=1):
         # after = time.localtime(time.mktime(after)+(self.walking_time*60))
         trips_list = []
+        print(a,b)
         with open(self.filename, "r") as csvfile:
             line=csvfile.readline().lower()
             line=line.rstrip('\n')
