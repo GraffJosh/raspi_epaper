@@ -40,10 +40,14 @@ class Airly(Acquire):
         try:
             lat = self.lat.rsplit(".")[5]
             lon = self.lon.rsplit(".")[5]
+            print("https://airapi.airly.eu/v2/measurements/nearest?indexType=AIRLY_CAQI&lat={}&lng={}".format(
+                    lat,
+                    lon
+                ))
             r = requests.get(
                 "https://airapi.airly.eu/v2/measurements/nearest?indexType=AIRLY_CAQI&lat={}&lng={}".format(
-                    self.lat[:9],
-                    self.lon[:9]
+                    lat,
+                    lon
                 ),
                 headers = {
                     "apikey" : self.key,
