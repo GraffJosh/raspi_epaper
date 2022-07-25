@@ -40,8 +40,8 @@ class Airly(Acquire):
         try:
             r = requests.get(
                 "https://airapi.airly.eu/v2/measurements/nearest?indexType=AIRLY_CAQI&lat={}&lng={}".format(
-                    self.lat,
-                    self.lon
+                    self.lat[:6],
+                    self.lon[:6]
                 ),
                 headers = {
                     "apikey" : self.key,

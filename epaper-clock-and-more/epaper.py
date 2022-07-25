@@ -67,6 +67,7 @@ class EPaper(object):
 
     aqi = None
     if os.environ.get("AIRLY_KEY"):
+        print("airly")
         aqi = Airly(
             os.environ.get("AIRLY_KEY"),
             os.environ.get("LAT"),
