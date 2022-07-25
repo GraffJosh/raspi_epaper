@@ -89,6 +89,7 @@ class Drawing(object):
         top_y = start_pos[1] - 6
 
         current_temp = float(weather.temp)
+        print("temp: ", current_temp)
         if prefer_airly_local_temp and airly.temperature is not None:
             current_temp = airly.temperature
         caption = "{:0.0f}{}".format(current_temp, self.TEMPERATURE_SYMBOL)
