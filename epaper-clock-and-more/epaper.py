@@ -84,6 +84,7 @@ class EPaper(object):
 
     weather = None
     if os.environ.get("OPENWEATHER_KEY"):
+        print("openweather")
         weather = OpenWeather(
             os.environ.get("OPENWEATHER_KEY"),
             os.environ.get("LAT"),
@@ -92,6 +93,7 @@ class EPaper(object):
             int(os.environ.get("OPENWEATHER_TTL", "15"))
         )
     elif os.environ.get("WEATHERBIT_IO_KEY"):
+        print("weatherbit")
         weather = Weatherbit(
             os.environ.get("WEATHERBIT_IO_KEY"),
             os.environ.get("LAT"),
@@ -100,6 +102,7 @@ class EPaper(object):
             int(os.environ.get("WEATHERBIT_IO_TTL", "15"))
         )
     else:
+        print("darksky")
         weather = DarkSky(
             os.environ.get("DARKSKY_KEY"),
             os.environ.get("LAT"),
